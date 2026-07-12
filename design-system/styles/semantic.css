@@ -238,7 +238,8 @@
   /* The TPD brand gradient IS the accent interaction color. Use it for the
      confirm/advance moment on CTAs, strongest-positive preference, the
      recommended candidate, and selected emphasis. */
-  --color-accent-interaction: var(--gradient-brand);
+  /* +8% white tint on the large accent fill (softer than raw teal-500). primitive palette unchanged. */
+  --color-accent-interaction: linear-gradient(90deg, #73e3dc 0%, #14cdd5 50%, #40d7d9 100%);
   --color-accent-interaction-diagonal: var(--gradient-brand-diagonal);
   --gradient-interactive: var(--color-accent-interaction);          /* alias */
   --gradient-interactive-diagonal: var(--color-accent-interaction-diagonal);

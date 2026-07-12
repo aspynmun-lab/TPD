@@ -28,40 +28,50 @@ const roles: { href: string; icon: IconName; title: string; role: string; desc: 
 
 export function EntryLanding() {
   return (
-    <div className="sf-landing">
-      <PageContainer>
-        <Stack gap="xl" style={{ maxWidth: 880, marginInline: "auto" }}>
-          <Stack gap="md" align="center" style={{ textAlign: "center" }}>
-            <Logo size={40} />
-            <h1 className="type-h2" style={{ marginTop: 8 }}>
-              모두가 편한 시간을, <span className="sf-hero-gradient">부담 없이</span>
-            </h1>
-            <p className="ds-lead type-b2" style={{ color: "var(--color-text-secondary)", marginInline: "auto" }}>
-              가능/불가를 넘어 선호 강도까지 담아, 특정인에게 부담이 쏠리지 않는 회의 시간을 찾습니다.
+    <div className="sf-hero-stage">
+      {/* 배경 영상: public/hero.mp4 를 넣으면 자동 재생됩니다. 없으면 fallback 그라디언트. */}
+      <video className="sf-hero-video" autoPlay muted loop playsInline preload="auto" poster="">
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
+      <div className="sf-hero-scrim" aria-hidden />
+
+      <div className="sf-hero-content">
+        <PageContainer>
+          <Stack gap="xl" style={{ maxWidth: 880, marginInline: "auto" }}>
+            <Stack gap="md" align="center" style={{ textAlign: "center" }}>
+              <span className="sf-logo-fadein"><Logo size={44} /></span>
+              <h1 className="type-h2 sf-fadein sf-fadein-1" style={{ marginTop: 8 }}>
+                모두가 편한 시간을, <span className="sf-hero-gradient">부담 없이</span>
+              </h1>
+              <p className="ds-lead type-b2 sf-fadein sf-fadein-2" style={{ color: "var(--color-text-secondary)", marginInline: "auto" }}>
+                가능/불가를 넘어 선호 강도까지 담아, 특정인에게 부담이 쏠리지 않는 회의 시간을 찾습니다.
+              </p>
+            </Stack>
+
+            <div className="sf-fadein sf-fadein-3">
+              <Column>
+                {roles.map((r) => (
+                  <Col span={6} key={r.href}>
+                    <Link href={r.href} className="sf-rolecard">
+                      <Stack gap="sm">
+                        <span className="emoji" aria-hidden><Icon name={r.icon} size="lg" color="var(--color-text-accent)" /></span>
+                        <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>{r.role}</span>
+                        <h2 className="type-s1">{r.title}</h2>
+                        <p className="type-b4" style={{ color: "var(--color-text-secondary)" }}>{r.desc}</p>
+                        <span className="type-s6" style={{ color: "var(--color-text-accent)", marginTop: 4 }}>{r.cta} →</span>
+                      </Stack>
+                    </Link>
+                  </Col>
+                ))}
+              </Column>
+            </div>
+
+            <p className="type-d1 sf-fadein sf-fadein-3" style={{ color: "var(--color-text-tertiary)", textAlign: "center" }}>
+              실제 서비스에서는 주최자는 관리자 링크로, 참여자는 초대 링크로 각자 진입해요.
             </p>
           </Stack>
-
-          <Column>
-            {roles.map((r) => (
-              <Col span={6} key={r.href}>
-                <Link href={r.href} className="sf-rolecard">
-                  <Stack gap="sm">
-                    <span className="emoji" aria-hidden><Icon name={r.icon} size="lg" color="var(--color-text-accent)" /></span>
-                    <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>{r.role}</span>
-                    <h2 className="type-s1">{r.title}</h2>
-                    <p className="type-b4" style={{ color: "var(--color-text-secondary)" }}>{r.desc}</p>
-                    <span className="type-s6" style={{ color: "var(--color-text-accent)", marginTop: 4 }}>{r.cta} →</span>
-                  </Stack>
-                </Link>
-              </Col>
-            ))}
-          </Column>
-
-          <p className="type-d1" style={{ color: "var(--color-text-tertiary)", textAlign: "center" }}>
-            실제 서비스에서는 주최자는 관리자 링크로, 참여자는 초대 링크로 각자 진입해요.
-          </p>
-        </Stack>
-      </PageContainer>
+        </PageContainer>
+      </div>
     </div>
   );
 }

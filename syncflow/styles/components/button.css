@@ -28,7 +28,7 @@
 
   /* Color roles ----------------------------------------------------------- */
   /* primary */
-  --color-comp-button-primary-bg:         var(--color-brand-primary);
+  --color-comp-button-primary-bg:         color-mix(in srgb, var(--color-brand-primary) 92%, #ffffff); /* +8% white tint */
   --color-comp-button-primary-bg-hover:   var(--color-brand-primary-hover);
   --color-comp-button-primary-bg-pressed: var(--color-brand-primary-pressed);
   --color-comp-button-primary-label:      var(--color-text-on-brand);
@@ -95,7 +95,7 @@
 }
 .ds-button[data-confirming="true"] {
   background: none;
-  background-image: linear-gradient(90deg, #67e0d9, #00c9d1, #2fd4d6, #00c9d1, #67e0d9);
+  background-image: linear-gradient(90deg, #73e3dc, #14cdd5, #40d7d9, #14cdd5, #73e3dc);
   background-size: 200% 100%;
   color: var(--color-on-accent-interaction);
   border-color: transparent;

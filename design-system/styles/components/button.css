@@ -79,9 +79,21 @@
 
 /* --- Variant: primary ----------------------------------------------------- */
 .ds-button[data-variant="primary"] { background: var(--color-comp-button-primary-bg); color: var(--color-comp-button-primary-label); }
-/* Interaction: brand gradient sweeps in on hover */
-.ds-button[data-variant="primary"]:hover { background-image: var(--gradient-interactive); }
+.ds-button[data-variant="primary"]:hover { background: var(--color-comp-button-primary-bg-hover); }
 .ds-button[data-variant="primary"]:active { background: var(--color-comp-button-primary-bg-pressed); }
+
+/* Interaction: on CLICK the CTA fills with the accent-interaction gradient,
+   holds briefly, then the screen advances. Applied via data-confirming
+   (set by CTAButton). Overrides variant background while confirming. */
+.ds-button[data-confirming="true"] {
+  background: none;
+  background-image: var(--color-accent-interaction);
+  color: var(--color-on-accent-interaction);
+  border-color: transparent;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-standard),
+              background-image var(--motion-duration-base) var(--motion-easing-enter);
+}
+.ds-button[data-confirming="true"]:active { transform: none; }
 
 /* --- Variant: secondary --------------------------------------------------- */
 .ds-button[data-variant="secondary"] { background: var(--color-comp-button-secondary-bg); color: var(--color-comp-button-secondary-label); }

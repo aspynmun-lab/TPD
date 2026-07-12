@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Inline } from "@/lib/components/layout/Inline";
 import { Stack } from "@/lib/components/layout/Stack";
+import { CTAButton } from "@/lib/components/ui/CTAButton";
 
 const intensities = ["불가", "부담", "괜찮음", "좋음"];
 
@@ -10,9 +11,24 @@ const intensities = ["불가", "부담", "괜찮음", "좋음"];
 export function MotionDemos() {
   const [picked, setPicked] = useState<number | null>(2);
   const [explainKey, setExplainKey] = useState(0);
+  const [step, setStep] = useState(1);
 
   return (
     <Stack gap="lg">
+      {/* CTA confirm -> advance (accent interaction gradient on click) */}
+      <div className="ds-card">
+        <Stack gap="sm">
+          <span className="type-s3">CTA 확정 · accent interaction</span>
+          <span className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>
+            CTA를 누르면 <strong>클릭 순간에만</strong> primary가 accent-interaction 그라디언트로 채워져 잠깐 보여준 뒤 다음 화면으로 넘어갑니다.
+          </span>
+          <Inline gap="md">
+            <CTAButton onAdvance={() => setStep((s) => (s % 3) + 1)}>다음 단계로</CTAButton>
+            <span className="type-b4" style={{ color: "var(--color-text-secondary)" }}>현재: {step} / 3 단계</span>
+          </Inline>
+        </Stack>
+      </div>
+
       {/* Preference intensity — selection pop (tactile confirm, not binary) */}
       <div className="ds-card">
         <Stack gap="sm">

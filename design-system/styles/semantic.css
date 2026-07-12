@@ -234,10 +234,14 @@
   --motion-explain:  var(--motion-duration-deliberate) var(--motion-easing-enter);
   --motion-select:   var(--motion-duration-base) var(--motion-easing-emphasized);
 
-  /* Gradient roles ------------------------------------------------------- */
-  /* The brand gradient is the "interaction" accent: strongest-positive
-     preference, recommended candidate, selected/hover emphasis. */
-  --gradient-interactive: var(--gradient-brand);
-  --gradient-interactive-diagonal: var(--gradient-brand-diagonal);
-  --color-on-gradient: var(--palette-grey-900); /* dark label on teal gradient */
+  /* Accent interaction color (gradient) ---------------------------------- */
+  /* The TPD brand gradient IS the accent interaction color. Use it for the
+     confirm/advance moment on CTAs, strongest-positive preference, the
+     recommended candidate, and selected emphasis. */
+  --color-accent-interaction: var(--gradient-brand);
+  --color-accent-interaction-diagonal: var(--gradient-brand-diagonal);
+  --gradient-interactive: var(--color-accent-interaction);          /* alias */
+  --gradient-interactive-diagonal: var(--color-accent-interaction-diagonal);
+  --color-on-accent-interaction: var(--palette-grey-900);           /* dark label on teal gradient */
+  --color-on-gradient: var(--color-on-accent-interaction);          /* alias */
 }

@@ -5,11 +5,12 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { Column, Col } from "@/lib/components/layout/Column";
 import { Logo } from "@/lib/components/site/Logo";
+import { Icon, type IconName } from "@/lib/components/ui/Icon";
 
-const roles = [
+const roles: { href: string; icon: IconName; title: string; role: string; desc: string; cta: string }[] = [
   {
     href: "/host",
-    emoji: "🗓️",
+    icon: "calendar",
     title: "회의를 여는 사람",
     role: "주최자",
     desc: "새 회의를 만들고, 후보 시간을 정하지 않아도 부담이 가장 적은 시간을 찾아드려요.",
@@ -17,7 +18,7 @@ const roles = [
   },
   {
     href: "/invite",
-    emoji: "✋",
+    icon: "check",
     title: "초대받은 사람",
     role: "참여자",
     desc: "가능/불가가 아니라 얼마나 괜찮은지, 내 선호를 시간표에 칠하기만 하면 돼요.",
@@ -45,7 +46,7 @@ export function EntryLanding() {
               <Col span={6} key={r.href}>
                 <Link href={r.href} className="sf-rolecard">
                   <Stack gap="sm">
-                    <span className="emoji" aria-hidden>{r.emoji}</span>
+                    <span className="emoji" aria-hidden><Icon name={r.icon} size="lg" color="var(--color-text-accent)" /></span>
                     <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>{r.role}</span>
                     <h2 className="type-s1">{r.title}</h2>
                     <p className="type-b4" style={{ color: "var(--color-text-secondary)" }}>{r.desc}</p>

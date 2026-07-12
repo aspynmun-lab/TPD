@@ -7,11 +7,12 @@ import { Stack } from "@/lib/components/layout/Stack";
 import { Inline } from "@/lib/components/layout/Inline";
 import { CTAButton } from "@/lib/components/ui/CTAButton";
 import { Logo } from "@/lib/components/site/Logo";
+import { Icon } from "@/lib/components/ui/Icon";
 
 const POINTS = [
-  { emoji: "🚫", text: "후보 시간을 미리 정하지 않아요 — 한 사람 기준으로 맞추는 부담을 없앱니다" },
-  { emoji: "📊", text: "참여자 선호가 모이면 부담이 가장 적은 시간을 추천해요" },
-  { emoji: "🔒", text: "누가 부담을 느끼는지는 공개되지 않고, 집계 수치만 보여요" },
+  "후보 시간을 미리 정하지 않아요 — 한 사람 기준으로 맞추는 부담을 없앱니다",
+  "참여자 선호가 모이면 부담이 가장 적은 시간을 추천해요",
+  "누가 부담을 느끼는지는 공개되지 않고, 집계 수치만 보여요",
 ];
 
 export function HostLanding() {
@@ -30,10 +31,12 @@ export function HostLanding() {
           </Stack>
 
           <Stack gap="md">
-            {POINTS.map((p) => (
-              <Inline key={p.text} gap="md" align="start">
-                <span className="emoji" aria-hidden style={{ width: 40, height: 40, fontSize: 20 }}>{p.emoji}</span>
-                <span className="type-b3" style={{ color: "var(--color-text-secondary)", paddingTop: 6 }}>{p.text}</span>
+            {POINTS.map((text) => (
+              <Inline key={text} gap="md" align="start">
+                <span className="emoji" aria-hidden style={{ width: 32, height: 32, flexShrink: 0 }}>
+                  <Icon name="check" size="md" color="var(--color-text-accent)" />
+                </span>
+                <span className="type-b3" style={{ color: "var(--color-text-secondary)", paddingTop: 4 }}>{text}</span>
               </Inline>
             ))}
           </Stack>

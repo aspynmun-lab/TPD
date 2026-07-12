@@ -77,12 +77,7 @@
   transition: box-shadow var(--motion-surface), transform var(--motion-surface), border-color var(--motion-control);
 }
 .ds-candidate[data-recommended="true"] { border-color: var(--color-border-brand); }
-/* recommended accent bar = brand gradient */
-.ds-candidate[data-recommended="true"]::before {
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--gradient-interactive);
-}
 .ds-candidate[data-confirmed="true"] { border-color: var(--color-semantic-success); }
-.ds-candidate[data-confirmed="true"]::before { background: var(--color-semantic-success); }
 .ds-candidate:hover { transform: translateY(var(--motion-lift)); box-shadow: var(--shadow-elevation-mid); }
 
 .ds-badge-reco {

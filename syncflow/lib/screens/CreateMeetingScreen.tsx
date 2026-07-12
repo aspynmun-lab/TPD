@@ -75,10 +75,14 @@ export function CreateMeetingScreen() {
             <input className="ds-input type-b4" value="1시간" disabled aria-label="소요 시간 1시간 고정" />
           </div>
 
-          {/* 조율 기간 */}
+          {/* 조율 기간 (자유입력 불가 — 프리셋 선택) */}
           <div>
             <span className="ds-field-label type-d1">조율 기간</span>
-            <input className="ds-input type-b4" value={rangeLabel} onChange={(e) => setRangeLabel(e.target.value)} />
+            <select className="ds-input ds-select type-b4" value={rangeLabel} onChange={(e) => setRangeLabel(e.target.value)}>
+              <option>이번 주 평일 (7/7–7/11)</option>
+              <option>다음 주 평일 (7/14–7/18)</option>
+              <option>다다음 주 평일 (7/21–7/25)</option>
+            </select>
           </div>
 
           {/* 마감일 */}

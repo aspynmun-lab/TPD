@@ -1,0 +1,101 @@
+/* ============================================================================
+ * TPD Design System — TIER 3: COMPONENT TOKENS + STYLES  (Button)
+ * Component tokens (--*-comp-button-*) name the component's roles and map them
+ * to TIER 2 role tokens. Components NEVER touch primitives directly.
+ * Layout/shape/spacing behaviour references the Kairo Button; colors are TPD.
+ * ==========================================================================*/
+
+:root {
+  /* Spacing (inset + gaps) ------------------------------------------------ */
+  --space-comp-inset-button-lg-x: var(--space-scale-24);
+  --space-comp-inset-button-lg-y: var(--space-scale-16);
+  --space-comp-inset-button-md-x: var(--space-scale-20);
+  --space-comp-inset-button-md-y: var(--space-scale-12);
+  --space-comp-inset-button-sm-x: var(--space-scale-16);
+  --space-comp-inset-button-sm-y: var(--space-scale-8);
+  --space-comp-gap-icon-label: var(--space-scale-8);
+
+  /* Shape ----------------------------------------------------------------- */
+  --radius-comp-button: var(--radius-interactive-md);
+
+  /* Type ------------------------------------------------------------------ */
+  --type-comp-button-lg-size: 18px;
+  --type-comp-button-md-size: 16px;
+  --type-comp-button-sm-size: 14px;
+  --type-comp-button-weight: var(--font-weight-semibold);
+
+  /* Color roles ----------------------------------------------------------- */
+  /* primary */
+  --color-comp-button-primary-bg:         var(--color-brand-primary);
+  --color-comp-button-primary-bg-hover:   var(--color-brand-primary-hover);
+  --color-comp-button-primary-bg-pressed: var(--color-brand-primary-pressed);
+  --color-comp-button-primary-label:      var(--color-text-on-brand);
+  /* secondary */
+  --color-comp-button-secondary-bg:         var(--color-brand-secondary);
+  --color-comp-button-secondary-bg-hover:   var(--color-brand-secondary-hover);
+  --color-comp-button-secondary-bg-pressed: var(--color-brand-secondary-pressed);
+  --color-comp-button-secondary-label:      var(--color-text-on-brand);
+  /* outline */
+  --color-comp-button-outline-border:       var(--color-border-default);
+  --color-comp-button-outline-border-hover: var(--color-border-hover);
+  --color-comp-button-outline-label:        var(--color-text-primary);
+  --color-comp-button-outline-bg-hover:     var(--color-bg-subtle);
+  /* ghost */
+  --color-comp-button-ghost-label:    var(--color-text-primary);
+  --color-comp-button-ghost-bg-hover: var(--color-bg-subtle);
+  /* disabled (shared) */
+  --color-comp-button-disabled-bg:    var(--color-bg-disabled);
+  --color-comp-button-disabled-label: var(--color-text-disabled);
+}
+
+/* --- Base ----------------------------------------------------------------- */
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-comp-gap-icon-label);
+  border: 1px solid transparent;
+  border-radius: var(--radius-comp-button);
+  font-family: var(--font-family-body);
+  font-weight: var(--type-comp-button-weight);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+.ds-button[data-full="true"] { width: 100%; }
+
+/* --- Size ----------------------------------------------------------------- */
+.ds-button[data-size="lg"] { padding: var(--space-comp-inset-button-lg-y) var(--space-comp-inset-button-lg-x); font-size: var(--type-comp-button-lg-size); }
+.ds-button[data-size="md"] { padding: var(--space-comp-inset-button-md-y) var(--space-comp-inset-button-md-x); font-size: var(--type-comp-button-md-size); }
+.ds-button[data-size="sm"] { padding: var(--space-comp-inset-button-sm-y) var(--space-comp-inset-button-sm-x); font-size: var(--type-comp-button-sm-size); }
+
+/* --- Variant: primary ----------------------------------------------------- */
+.ds-button[data-variant="primary"] { background: var(--color-comp-button-primary-bg); color: var(--color-comp-button-primary-label); }
+.ds-button[data-variant="primary"]:hover { background: var(--color-comp-button-primary-bg-hover); }
+.ds-button[data-variant="primary"]:active { background: var(--color-comp-button-primary-bg-pressed); }
+
+/* --- Variant: secondary --------------------------------------------------- */
+.ds-button[data-variant="secondary"] { background: var(--color-comp-button-secondary-bg); color: var(--color-comp-button-secondary-label); }
+.ds-button[data-variant="secondary"]:hover { background: var(--color-comp-button-secondary-bg-hover); }
+.ds-button[data-variant="secondary"]:active { background: var(--color-comp-button-secondary-bg-pressed); }
+
+/* --- Variant: outline ----------------------------------------------------- */
+.ds-button[data-variant="outline"] { background: transparent; color: var(--color-comp-button-outline-label); border-color: var(--color-comp-button-outline-border); }
+.ds-button[data-variant="outline"]:hover { background: var(--color-comp-button-outline-bg-hover); border-color: var(--color-comp-button-outline-border-hover); }
+
+/* --- Variant: ghost ------------------------------------------------------- */
+.ds-button[data-variant="ghost"] { background: transparent; color: var(--color-comp-button-ghost-label); }
+.ds-button[data-variant="ghost"]:hover { background: var(--color-comp-button-ghost-bg-hover); }
+
+/* --- Disabled (all variants) ---------------------------------------------- */
+.ds-button:disabled,
+.ds-button[data-variant][aria-disabled="true"] {
+  background: var(--color-comp-button-disabled-bg);
+  color: var(--color-comp-button-disabled-label);
+  border-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}

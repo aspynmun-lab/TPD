@@ -1,0 +1,105 @@
+/* Design-system site chrome (docs UI itself — not part of the token spec). */
+.site {
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  min-height: 100vh;
+}
+.site-sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  padding: var(--space-scale-24) var(--space-scale-20);
+}
+.site-main { min-width: 0; }
+
+.site-brand { display: flex; flex-direction: column; gap: var(--space-scale-2); margin-bottom: var(--space-scale-32); }
+.site-brand .mark { color: var(--color-text-accent); }
+.site-brand .sub { color: var(--color-text-tertiary); }
+
+.nav-group { margin-bottom: var(--space-scale-24); }
+.nav-group > .label {
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 var(--space-scale-8);
+  margin-bottom: var(--space-scale-8);
+}
+.nav-link {
+  display: block;
+  padding: var(--space-scale-8) var(--space-scale-8);
+  border-radius: var(--radius-interactive-sm);
+  color: var(--color-text-secondary);
+}
+.nav-link:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+.nav-link[aria-current="page"] { background: var(--color-bg-accent-subtle); color: var(--color-text-accent); }
+
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: var(--space-scale-8);
+  padding: var(--space-scale-8) var(--space-scale-12);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-interactive-lg);
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  margin-top: var(--space-scale-8);
+}
+.theme-toggle:hover { border-color: var(--color-border-hover); }
+
+/* Doc page primitives */
+.ds-section { margin-bottom: var(--space-scale-64); }
+.ds-section > header { margin-bottom: var(--space-scale-24); }
+.ds-eyebrow { color: var(--color-text-accent); text-transform: uppercase; letter-spacing: 0.08em; }
+.ds-lead { color: var(--color-text-secondary); max-width: 62ch; margin-top: var(--space-scale-8); }
+
+.ds-card {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-container-md);
+  padding: var(--space-scale-24);
+}
+.ds-tier-badge {
+  display: inline-block;
+  padding: 2px var(--space-scale-8);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-accent-subtle);
+  color: var(--color-text-accent);
+  border: 1px solid var(--color-border-brand);
+}
+
+/* Tables */
+.ds-table { width: 100%; border-collapse: collapse; }
+.ds-table th, .ds-table td {
+  text-align: left; padding: var(--space-scale-10) var(--space-scale-12);
+  border-bottom: 1px solid var(--color-border-subtle);
+  vertical-align: middle;
+}
+.ds-table th { color: var(--color-text-tertiary); font-weight: var(--font-weight-semibold); }
+.ds-table code { color: var(--color-text-primary); background: var(--color-bg-subtle); padding: 2px 6px; border-radius: var(--radius-xs); font-size: 13px; }
+.ds-scroll { overflow-x: auto; }
+
+/* Swatches */
+.swatch-scale { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--space-scale-8); }
+.swatch { border-radius: var(--radius-container-sm); overflow: hidden; border: 1px solid var(--color-border-subtle); }
+.swatch .chip { height: 64px; }
+.swatch .meta { padding: var(--space-scale-8); background: var(--color-bg-surface); }
+.swatch .meta .step { color: var(--color-text-primary); }
+.swatch .meta .hex { color: var(--color-text-tertiary); text-transform: uppercase; }
+
+.demo-box {
+  background: var(--color-bg-accent-subtle);
+  border: 1px dashed var(--color-border-brand);
+  border-radius: var(--radius-interactive-sm);
+  color: var(--color-text-accent);
+  padding: var(--space-scale-12);
+  text-align: center;
+}
+.demo-frame { background: var(--color-bg-subtle); border-radius: var(--radius-container-md); padding: var(--space-scale-16); }
+
+@media (max-width: 64rem) {
+  .site { grid-template-columns: 1fr; }
+  .site-sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--color-border-default); }
+}

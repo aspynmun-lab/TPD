@@ -1,0 +1,81 @@
+/* ============================================================================
+ * TPD Design System — LAYOUT SYSTEM (TIER 2)
+ * Ported as-is from the Kairo layout primitives: Stack / Inline / Column /
+ * PageContainer. Behaviour and token bindings are preserved; only colors and
+ * theme belong to the TPD system.
+ *
+ * Gap sizes bind to --space-layout-* role tokens. Column is a 12-track grid
+ * with a --space-layout-gutter gap.
+ * ==========================================================================*/
+
+/* --- Stack (vertical flow) ------------------------------------------------ */
+.ds-stack { display: flex; flex-direction: column; }
+.ds-stack[data-gap="xs"] { gap: var(--space-layout-stack-xs); }
+.ds-stack[data-gap="sm"] { gap: var(--space-layout-stack-sm); }
+.ds-stack[data-gap="md"] { gap: var(--space-layout-stack-md); }
+.ds-stack[data-gap="lg"] { gap: var(--space-layout-stack-lg); }
+.ds-stack[data-gap="xl"] { gap: var(--space-layout-stack-xl); }
+.ds-stack[data-gap="gutter"] { gap: var(--space-layout-gutter); }
+
+/* --- Inline (horizontal flow) --------------------------------------------- */
+.ds-inline { display: flex; flex-direction: row; align-items: center; }
+.ds-inline[data-gap="xs"] { gap: var(--space-layout-inline-xs); }
+.ds-inline[data-gap="sm"] { gap: var(--space-layout-inline-sm); }
+.ds-inline[data-gap="md"] { gap: var(--space-layout-inline-md); }
+.ds-inline[data-gap="lg"] { gap: var(--space-layout-inline-lg); }
+.ds-inline[data-gap="xl"] { gap: var(--space-layout-inline-xl); }
+.ds-inline[data-gap="gutter"] { gap: var(--space-layout-gutter); }
+.ds-inline[data-wrap="true"] { flex-wrap: wrap; }
+
+/* alignment (shared by Stack + Inline) */
+.ds-stack[data-align="start"],  .ds-inline[data-align="start"]   { align-items: flex-start; }
+.ds-stack[data-align="center"], .ds-inline[data-align="center"]  { align-items: center; }
+.ds-stack[data-align="end"],    .ds-inline[data-align="end"]     { align-items: flex-end; }
+.ds-stack[data-align="stretch"],.ds-inline[data-align="stretch"] { align-items: stretch; }
+.ds-stack[data-justify="start"],  .ds-inline[data-justify="start"]   { justify-content: flex-start; }
+.ds-stack[data-justify="center"], .ds-inline[data-justify="center"]  { justify-content: center; }
+.ds-stack[data-justify="end"],    .ds-inline[data-justify="end"]     { justify-content: flex-end; }
+.ds-stack[data-justify="between"],.ds-inline[data-justify="between"] { justify-content: space-between; }
+
+/* --- Column (12-track responsive grid) ------------------------------------ */
+.ds-column {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-layout-gutter);
+}
+/* Children collapse to a single column below md, expand to their span at md+ */
+.ds-col { grid-column: span 12 / span 12; min-width: 0; }
+@media (min-width: 48rem) {
+  .ds-col[data-span="1"]  { grid-column: span 1  / span 1; }
+  .ds-col[data-span="2"]  { grid-column: span 2  / span 2; }
+  .ds-col[data-span="3"]  { grid-column: span 3  / span 3; }
+  .ds-col[data-span="4"]  { grid-column: span 4  / span 4; }
+  .ds-col[data-span="5"]  { grid-column: span 5  / span 5; }
+  .ds-col[data-span="6"]  { grid-column: span 6  / span 6; }
+  .ds-col[data-span="7"]  { grid-column: span 7  / span 7; }
+  .ds-col[data-span="8"]  { grid-column: span 8  / span 8; }
+  .ds-col[data-span="9"]  { grid-column: span 9  / span 9; }
+  .ds-col[data-span="10"] { grid-column: span 10 / span 10; }
+  .ds-col[data-span="11"] { grid-column: span 11 / span 11; }
+  .ds-col[data-span="12"] { grid-column: span 12 / span 12; }
+}
+
+/* --- PageContainer (page shell, responsive inline padding) ---------------- */
+.ds-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: var(--layout-page-max-width);
+  padding-inline: var(--space-scale-16);
+  padding-block: var(--space-layout-stack-md);
+}
+.ds-page[data-fluid="true"] { max-width: none; }
+.ds-page[data-padding="none"] { padding-inline: 0; }
+@media (min-width: 48rem) {
+  .ds-page:not([data-padding="none"]) { padding-inline: var(--space-scale-24); }
+}
+@media (min-width: 64rem) {
+  .ds-page:not([data-padding="none"]) { padding-inline: var(--space-scale-40); padding-block: var(--space-layout-stack-lg); }
+}
+@media (min-width: 80rem) {
+  .ds-page:not([data-padding="none"]) { padding-inline: var(--space-scale-80); }
+}

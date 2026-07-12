@@ -1,0 +1,32 @@
+/* Fonts: SUITE (headings) + Pretendard (body) via CDN */
+@import url('https://cdn.jsdelivr.net/gh/sun-typeface/SUITE@2/fonts/variable/woff2/SUITE-Variable.css');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css');
+
+/* Token layers */
+@import url('../styles/primitives.css');
+@import url('../styles/semantic.css');
+@import url('../styles/typography.css');
+@import url('../styles/layout.css');
+@import url('../styles/components/button.css');
+@import url('../styles/site.css');
+
+/* --- Reset ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font-family-body);
+  font-size: var(--type-b4-size);
+  line-height: var(--type-b4-line);
+  letter-spacing: var(--letter-spacing-tight);
+  background: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+::selection { background: var(--color-brand-selection); color: var(--color-text-on-selection); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+img, svg { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--color-border-brand); outline-offset: 2px; border-radius: var(--radius-xs); }

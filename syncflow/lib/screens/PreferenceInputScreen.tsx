@@ -21,8 +21,14 @@ const MEETING = {
   dday: 3,
 };
 const WEEKDAYS = ["월", "화", "수", "목", "금"];
+// 조율 기간 = 지정된 주(다음 주 평일). 요일별 구체 일자.
+const DATE_OF: Record<string, string> = { "월": "7/14", "화": "7/15", "수": "7/16", "목": "7/17", "금": "7/18" };
 const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17]; // 09:00–18:00, 1h slots
 const cellKey = (d: string, h: number) => `${d}-${h}`;
+const INTENSITY_LABEL = Object.fromEntries(PREFERENCE_LEVELS.map((l) => [l.key, l.label])) as Record<PreferenceKey, string>;
+const hh = (h: number) => `${String(h).padStart(2, "0")}:00`;
+
+interface ConditionChip { id: number; rule: MemoRule; label: string; }
 
 export function PreferenceInputScreen() {
   const [brush, setBrush] = useState<PreferenceKey>("good");
@@ -30,6 +36,9 @@ export function PreferenceInputScreen() {
   const [painting, setPainting] = useState(false);
   const [memoOpen, setMemoOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [chips, setChips] = useState<ConditionChip[]>([]);
+  const [chipSeq, setChipSeq] = useState(1);
+  const [appliedChip, setAppliedChip] = useState<number | null>(null);
 
   useEffect(() => {
     const stop = () => setPainting(false);
@@ -48,8 +57,9 @@ export function PreferenceInputScreen() {
     return c;
   }, [cells]);
 
-  function applyMemo(rule: MemoRule) {
-    const targetDays = rule.days.length ? rule.days : [WEEKDAYS.find((d) => WEEKDAYS.includes(d))!];
+  // Paint the grid from a saved condition.
+  const applyRule = useCallback((rule: MemoRule) => {
+    const targetDays = rule.days.length ? rule.days : [WEEKDAYS[0]];
     setCells((prev) => {
       const next = { ...prev };
       targetDays.forEach((d) => {
@@ -59,7 +69,23 @@ export function PreferenceInputScreen() {
       });
       return next;
     });
+  }, []);
+
+  // Saving a condition creates a reusable chip (auto-select control) and applies it once.
+  function saveCondition(rule: MemoRule) {
+    const days = rule.days.length ? rule.days.join("·") : "1회";
+    const label = rule.label || `${INTENSITY_LABEL[rule.intensity]} · ${days} ${hh(rule.startHour)}–${hh(rule.endHour)}`;
+    const id = chipSeq;
+    setChipSeq(id + 1);
+    setChips((c) => [...c, { id, rule, label }]);
+    applyRule(rule);
     setMemoOpen(false);
+  }
+
+  function runChip(c: ConditionChip) {
+    applyRule(c.rule);
+    setAppliedChip(c.id);
+    window.setTimeout(() => setAppliedChip(null), 320);
   }
 
   if (submitted) {
@@ -127,9 +153,38 @@ export function PreferenceInputScreen() {
             <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>브러시</span>
             <Inline gap="md" wrap justify="between">
               <PreferenceScale value={brush} onChange={setBrush} showDesc={false} />
-              <Button variant="ghost" onClick={() => setMemoOpen(true)}>+ 메모 설정 추가</Button>
+              <Button variant="ghost" onClick={() => setMemoOpen(true)}>+ 조건 칩 만들기</Button>
             </Inline>
           </Stack>
+
+          {/* 조건 칩 — 히트맵 자동선택 컨트롤 버튼 */}
+          {chips.length > 0 && (
+            <Stack gap="sm">
+              <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>
+                내 조건 칩 · 클릭하면 그리드에 자동 적용돼요
+              </span>
+              <Inline gap="sm" wrap>
+                {chips.map((c) => (
+                  <span
+                    key={c.id}
+                    className={"sf-condchip" + (appliedChip === c.id ? " is-applied" : "")}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => runChip(c)}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") runChip(c); }}
+                  >
+                    <span className="dot" data-level={c.rule.intensity} aria-hidden />
+                    <span className="type-b5">{c.label}</span>
+                    <button
+                      className="rm"
+                      aria-label="조건 삭제"
+                      onClick={(e) => { e.stopPropagation(); setChips((x) => x.filter((y) => y.id !== c.id)); }}
+                    >×</button>
+                  </span>
+                ))}
+              </Inline>
+            </Stack>
+          )}
 
           {/* Grid */}
           <div
@@ -138,7 +193,12 @@ export function PreferenceInputScreen() {
             onMouseLeave={() => setPainting(false)}
           >
             <span aria-hidden />
-            {WEEKDAYS.map((d) => <span key={d} className="ds-grid-head type-s6">{d}</span>)}
+            {WEEKDAYS.map((d) => (
+              <div key={d} className="ds-grid-head" style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                <span className="type-s6" style={{ color: "var(--color-text-secondary)" }}>{d}</span>
+                <span className="type-d3" style={{ color: "var(--color-text-tertiary)" }}>{DATE_OF[d]}</span>
+              </div>
+            ))}
             {HOURS.map((h) => (
               <Fragment key={h}>
                 <span className="ds-grid-time type-d2" style={{ alignSelf: "center" }}>{String(h).padStart(2, "0")}:00</span>
@@ -166,7 +226,7 @@ export function PreferenceInputScreen() {
               </p>
             )}
             <Inline gap="md" align="center">
-              <CTAButton disabled={!canSubmit} onAdvance={() => setSubmitted(true)}>저장</CTAButton>
+              <CTAButton disabled={!canSubmit} onAdvance={() => setSubmitted(true)}>일정 저장하기</CTAButton>
               <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>{filledCount}칸 선택됨</span>
             </Inline>
           </Stack>
@@ -174,7 +234,7 @@ export function PreferenceInputScreen() {
       </PageContainer>
 
       {memoOpen && (
-        <MemoModal weekdays={WEEKDAYS} hours={HOURS} onApply={applyMemo} onClose={() => setMemoOpen(false)} />
+        <MemoModal weekdays={WEEKDAYS} hours={HOURS} onApply={saveCondition} onClose={() => setMemoOpen(false)} />
       )}
     </>
   );

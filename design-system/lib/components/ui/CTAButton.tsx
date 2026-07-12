@@ -23,7 +23,7 @@ export function CTAButton({
   size = "lg",
   fullWidth = false,
   onAdvance,
-  holdMs = 550,
+  holdMs = 950,
   className,
   children,
   disabled,

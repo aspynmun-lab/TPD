@@ -83,17 +83,28 @@
 .ds-button[data-variant="primary"]:active { background: var(--color-comp-button-primary-bg-pressed); }
 
 /* Interaction: on CLICK the CTA fills with the accent-interaction gradient,
-   holds briefly, then the screen advances. Applied via data-confirming
-   (set by CTAButton). Overrides variant background while confirming. */
+   which then FLOWS in a loop and shimmers, before the screen advances.
+   Applied via data-confirming (set by CTAButton). */
+@keyframes ds-cta-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: -200% 50%; }
+}
+@keyframes ds-cta-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 201, 209, 0); }
+  50%      { box-shadow: 0 0 18px 3px rgba(0, 201, 209, 0.5); }
+}
 .ds-button[data-confirming="true"] {
   background: none;
-  background-image: var(--color-accent-interaction);
+  background-image: linear-gradient(90deg, #67e0d9, #00c9d1, #2fd4d6, #00c9d1, #67e0d9);
+  background-size: 200% 100%;
   color: var(--color-on-accent-interaction);
   border-color: transparent;
-  transition: background-color var(--motion-duration-fast) var(--motion-easing-standard),
-              background-image var(--motion-duration-base) var(--motion-easing-enter);
+  animation: ds-cta-flow 0.85s linear infinite, ds-cta-glow 1.1s ease-in-out infinite;
 }
 .ds-button[data-confirming="true"]:active { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ds-button[data-confirming="true"] { animation: none; background-image: var(--color-accent-interaction); }
+}
 
 /* --- Variant: secondary --------------------------------------------------- */
 .ds-button[data-variant="secondary"] { background: var(--color-comp-button-secondary-bg); color: var(--color-comp-button-secondary-label); }

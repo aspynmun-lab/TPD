@@ -54,13 +54,13 @@ export function MemoModal({
   }
 
   return (
-    <div className="ds-modal-overlay" role="dialog" aria-modal="true" aria-label="메모 설정" onMouseDown={onClose}>
+    <div className="ds-modal-overlay" role="dialog" aria-modal="true" aria-label="회의 선택 조건" onMouseDown={onClose}>
       <div className="ds-modal" onMouseDown={(e) => e.stopPropagation()}>
         <Stack gap="lg">
           <div>
-            <h2 className="type-h5">메모 설정</h2>
+            <h2 className="type-h5">회의 선택 조건</h2>
             <p className="type-b5" style={{ color: "var(--color-text-tertiary)", marginTop: 4 }}>
-              반복되는 패턴을 한 번에 적용합니다. 라벨은 나에게만 보여요.
+              저장하면 <strong>조건 칩</strong>이 만들어져요. 칩을 누르면 그리드에 자동으로 적용됩니다. 라벨은 나에게만 보여요.
             </p>
           </div>
 
@@ -130,7 +130,7 @@ export function MemoModal({
                 const chosen = days.filter((d) => weekdays.includes(d));
                 onApply({ intensity, startHour, endHour, days: chosen, label: label.trim() || undefined });
               }}
-            >적용</Button>
+            >조건 저장</Button>
           </Inline>
         </Stack>
       </div>

@@ -182,25 +182,35 @@
   border-radius: var(--radius-full); background: var(--color-bg-accent-subtle); color: var(--color-text-accent);
 }
 
-/* --- SyncFlow logo (theme-aware) ------------------------------------------ */
-.sf-logo {
-  font-family: var(--font-family-heading);
-  font-weight: var(--font-weight-bold);
-  line-height: 1;
-  letter-spacing: -0.4px;
-  display: inline-block;
+/* --- SyncFlow logo (inline SVG, theme-aware) ------------------------------ */
+.sf-logo { display: inline-block; vertical-align: middle; }
+/* Dark theme (default): teal accent-interaction gradient fill */
+.sf-logo-text { fill: url(#sf-logo-grad); }
+/* Light theme: solid grey-900 */
+:root[data-theme="light"] .sf-logo-text { fill: var(--palette-grey-900); }
+
+/* --- 조건 칩 (히트맵 자동선택 컨트롤 버튼) -------------------------------- */
+.sf-condchip {
+  display: inline-flex; align-items: center; gap: var(--space-scale-8);
+  padding: var(--space-scale-6) var(--space-scale-8) var(--space-scale-6) var(--space-scale-12);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-surface); color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--motion-control), border-color var(--motion-control), color var(--motion-control), transform var(--motion-control);
 }
-.sf-logo[data-variant="gradient"] {
-  background: var(--color-accent-interaction);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+.sf-condchip:hover { border-color: var(--color-border-brand); color: var(--color-text-primary); }
+.sf-condchip:active { transform: scale(var(--motion-press-scale)); }
+.sf-condchip.is-applied { animation: ds-pop var(--motion-duration-base) var(--motion-easing-emphasized); }
+.sf-condchip .dot { width: 10px; height: 10px; border-radius: var(--radius-full); flex-shrink: 0; }
+.sf-condchip .dot[data-level="unavailable"] { background: var(--color-comp-pref-unavailable-fg); }
+.sf-condchip .dot[data-level="burden"] { background: var(--color-comp-pref-burden-fg); }
+.sf-condchip .dot[data-level="okay"] { background: var(--color-comp-pref-okay-fg); }
+.sf-condchip .dot[data-level="good"] { background: var(--color-brand-primary); }
+.sf-condchip .rm {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: var(--radius-full);
+  background: var(--color-bg-subtle); color: var(--color-text-tertiary);
+  font-size: 12px; line-height: 1; border: none; cursor: pointer;
 }
-.sf-logo[data-variant="solid"] { color: var(--color-brand-primary); }
-/* Light mode: gradient wordmark becomes solid grey-900 */
-:root[data-theme="light"] .sf-logo[data-variant="gradient"] {
-  background: none;
-  color: var(--palette-grey-900);
-  -webkit-text-fill-color: var(--palette-grey-900);
-}
+.sf-condchip .rm:hover { color: var(--color-text-primary); }

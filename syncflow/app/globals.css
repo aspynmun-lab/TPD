@@ -25,6 +25,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 ::selection { background: var(--color-brand-selection); color: var(--color-text-on-selection); }
+a { color: inherit; text-decoration: none; }
 button { font: inherit; }
 img, svg { display: block; max-width: 100%; }
 :focus-visible { outline: 2px solid var(--color-border-brand); outline-offset: 2px; border-radius: var(--radius-xs); }

@@ -1,0 +1,49 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { PageContainer } from "@/lib/components/layout/PageContainer";
+import { Stack } from "@/lib/components/layout/Stack";
+import { Inline } from "@/lib/components/layout/Inline";
+import { CTAButton } from "@/lib/components/ui/CTAButton";
+import { Logo } from "@/lib/components/site/Logo";
+
+const POINTS = [
+  { emoji: "🚫", text: "후보 시간을 미리 정하지 않아요 — 한 사람 기준으로 맞추는 부담을 없앱니다" },
+  { emoji: "📊", text: "참여자 선호가 모이면 부담이 가장 적은 시간을 추천해요" },
+  { emoji: "🔒", text: "누가 부담을 느끼는지는 공개되지 않고, 집계 수치만 보여요" },
+];
+
+export function HostLanding() {
+  const router = useRouter();
+  return (
+    <div className="sf-landing">
+      <PageContainer>
+        <Stack gap="xl" style={{ maxWidth: 640, marginInline: "auto" }}>
+          <Logo size={28} />
+          <Stack gap="sm">
+            <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>주최자</span>
+            <h1 className="type-h2">새 회의 만들기</h1>
+            <p className="ds-lead type-b2" style={{ color: "var(--color-text-secondary)" }}>
+              조율 기간과 마감일만 정하면 돼요. 나머지는 SyncFlow가 부담 없이 맞춰드립니다.
+            </p>
+          </Stack>
+
+          <Stack gap="md">
+            {POINTS.map((p) => (
+              <Inline key={p.text} gap="md" align="start">
+                <span className="emoji" aria-hidden style={{ width: 40, height: 40, fontSize: 20 }}>{p.emoji}</span>
+                <span className="type-b3" style={{ color: "var(--color-text-secondary)", paddingTop: 6 }}>{p.text}</span>
+              </Inline>
+            ))}
+          </Stack>
+
+          <Inline gap="md" align="center">
+            <CTAButton onAdvance={() => router.push("/create")}>새 회의 만들기</CTAButton>
+            <Link href="/" className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>← 처음으로</Link>
+          </Inline>
+        </Stack>
+      </PageContainer>
+    </div>
+  );
+}

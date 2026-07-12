@@ -1,5 +1,5 @@
-import { PreferenceInputScreen } from "@/lib/screens/PreferenceInputScreen";
+import { EntryLanding } from "@/lib/screens/EntryLanding";
 
 export default function Page() {
-  return <PreferenceInputScreen />;
+  return <EntryLanding />;
 }

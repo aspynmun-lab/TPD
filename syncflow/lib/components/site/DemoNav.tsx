@@ -4,8 +4,9 @@ import Link from "next/link";
  *  this lets reviewers jump between screens. */
 export function DemoNav() {
   const links = [
-    { href: "/create", label: "회의 생성" },
-    { href: "/", label: "가능 입력" },
+    { href: "/", label: "랜딩" },
+    { href: "/host", label: "주최자" },
+    { href: "/invite", label: "참여자" },
     { href: "/board", label: "현황보드" },
   ];
   return (

@@ -3,9 +3,9 @@ import "./globals.css";
 import { Nav } from "@/lib/components/site/Nav";
 
 export const metadata: Metadata = {
-  title: "TPD Design System",
+  title: "SyncFlow Design System",
   description:
-    "TPD Design System — dark-first, 3-tier token architecture (Primitive → Role → Component). Teal/Orange/Grey palette, SUITE + Pretendard typography, Kairo-based layout system.",
+    "SyncFlow Design System — dark-first, 3-tier token architecture (Primitive → Role → Component). Teal/Orange/Grey palette, SUITE + Pretendard typography, Kairo-based layout system.",
 };
 
 // Runs before paint: dark is the default; only switch to light when explicitly stored.

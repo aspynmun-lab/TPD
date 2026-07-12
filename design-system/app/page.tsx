@@ -46,7 +46,7 @@ export default function Home() {
     <PageContainer>
       <Stack gap="xl">
         <header>
-          <span className="ds-eyebrow type-d1">TPD · Design System</span>
+          <span className="ds-eyebrow type-d1">SyncFlow · Design System</span>
           <h1 className="type-h1" style={{ marginTop: 8 }}>
             Dark-first design tokens & layout system
           </h1>

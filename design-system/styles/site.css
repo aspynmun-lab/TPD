@@ -16,9 +16,16 @@
 }
 .site-main { min-width: 0; }
 
-.site-brand { display: flex; flex-direction: column; gap: var(--space-scale-2); margin-bottom: var(--space-scale-32); }
+.site-brand { display: flex; flex-direction: column; gap: var(--space-scale-6); margin-bottom: var(--space-scale-32); text-decoration: none; }
 .site-brand .mark { color: var(--color-text-accent); }
 .site-brand .sub { color: var(--color-text-tertiary); }
+
+/* Brand logo (theme-aware; toggled by [data-theme] on <html>) */
+.sf-logo { display: inline-flex; align-items: center; vertical-align: middle; }
+.sf-logo-img { display: block; height: auto; }
+.sf-logo-light-only { display: none; }
+:root[data-theme="light"] .sf-logo-dark-only { display: none; }
+:root[data-theme="light"] .sf-logo-light-only { display: block; }
 
 .nav-group { margin-bottom: var(--space-scale-24); }
 .nav-group > .label {

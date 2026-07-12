@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
 const groups: { label: string; links: { href: string; label: string }[] }[] = [
@@ -33,10 +34,10 @@ const groups: { label: string; links: { href: string; label: string }[] }[] = [
 export function Nav() {
   return (
     <nav>
-      <div className="site-brand">
-        <span className="type-s1 mark">TPD</span>
+      <Link href="/" className="site-brand" aria-label="SyncFlow Design System 홈">
+        <Logo size={24} />
         <span className="type-d1 sub">Design System · Dark-first</span>
-      </div>
+      </Link>
       {groups.map((g) => (
         <div className="nav-group" key={g.label}>
           <div className="label type-d2">{g.label}</div>

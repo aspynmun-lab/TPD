@@ -10,57 +10,61 @@ import { CTAButton } from "@/lib/components/ui/CTAButton";
 import { Button } from "@/lib/components/ui/Button";
 import { Logo } from "@/lib/components/site/Logo";
 import { ConfirmedScreen } from "./ConfirmedScreen";
+import { WEEK, HOURS, hh, MEETING } from "@/lib/product/schedule";
 
-const MEETING = { title: "3분기 킥오프 미팅", total: 8 };
-const WEEKDAYS = ["월", "화", "수", "목", "금"];
-const DATE_OF: Record<string, string> = { "월": "7/14", "화": "7/15", "수": "7/16", "목": "7/17", "금": "7/18" };
-const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
-const hh = (h: number) => `${String(h).padStart(2, "0")}:00`;
+const TOTAL = MEETING.total;
 
-function agg(dayIdx: number, h: number): { available: number; burden: number } {
-  if (dayIdx === 1 && h === 14) return { available: 7, burden: 0 };
-  if (dayIdx === 2 && h === 11) return { available: 8, burden: 1 };
-  const available = Math.max(0, 8 - ((dayIdx * 2 + (h - 9)) % 6));
-  const burden = (dayIdx + h) % 3 === 0 ? 1 : 0;
+// Deterministic aggregate (counts only — never identity). Past days are excluded upstream.
+function agg(colIdx: number, h: number): { available: number; burden: number } {
+  if (colIdx === 2 && h === 15) return { available: 7, burden: 0 }; // Top1 (수 7/15)
+  if (colIdx === 3 && h === 11) return { available: 8, burden: 1 }; // Top2 (목 7/16)
+  const available = Math.max(0, 8 - ((colIdx * 2 + (h - 9)) % 6));
+  const burden = (colIdx + h) % 3 === 0 ? 1 : 0;
   return { available, burden: Math.min(burden, available) };
 }
 
 interface Candidate { key: string; when: string; available: number; burden: number; recommended: boolean; }
 type Scenario = "normal" | "empty" | "allBurden";
 
+const D_WED = WEEK[2]; // 수 7/15
+const D_THU = WEEK[3]; // 목 7/16
 const CANDIDATES: Record<Scenario, Candidate[]> = {
   normal: [
-    { key: "화-14", when: "화 14:00–15:00", available: 7, burden: 0, recommended: true },
-    { key: "수-11", when: "수 11:00–12:00", available: 8, burden: 1, recommended: false },
+    { key: `${D_WED.key}-15`, when: `${D_WED.weekday} ${D_WED.label} 15:00–16:00`, available: 7, burden: 0, recommended: true },
+    { key: `${D_THU.key}-11`, when: `${D_THU.weekday} ${D_THU.label} 11:00–12:00`, available: 8, burden: 1, recommended: false },
   ],
   empty: [],
   allBurden: [
-    { key: "화-14", when: "화 14:00–15:00", available: 7, burden: 1, recommended: true },
-    { key: "수-11", when: "수 11:00–12:00", available: 8, burden: 2, recommended: false },
+    { key: `${D_WED.key}-15`, when: `${D_WED.weekday} ${D_WED.label} 15:00–16:00`, available: 7, burden: 1, recommended: true },
+    { key: `${D_THU.key}-11`, when: `${D_THU.weekday} ${D_THU.label} 11:00–12:00`, available: 8, burden: 2, recommended: false },
   ],
 };
 
 export function DashboardScreen() {
   const [scenario, setScenario] = useState<Scenario>("normal");
-  const [selectedCell, setSelectedCell] = useState<string | null>("화-14");
-  const [picked, setPicked] = useState<string | null>("화-14");
+  const [selectedCell, setSelectedCell] = useState<string | null>(`${D_WED.key}-15`);
+  const [picked, setPicked] = useState<string | null>(`${D_WED.key}-15`);
   const [confirmed, setConfirmed] = useState<Candidate | null>(null);
 
   const responded = scenario === "empty" ? 0 : 6;
   const candidates = CANDIDATES[scenario];
   const noPerfect = candidates.length > 0 && candidates.every((c) => c.burden > 0);
-  const progressPct = (responded / MEETING.total) * 100;
+  const progressPct = (responded / TOTAL) * 100;
   const pickedCand = candidates.find((c) => c.key === picked) ?? null;
 
   const detail = (() => {
     if (!selectedCell) return null;
-    const [d, hStr] = selectedCell.split("-");
-    const a = agg(WEEKDAYS.indexOf(d), Number(hStr));
-    return { label: `${d} ${hh(Number(hStr))}`, ...a };
+    const idx = selectedCell.lastIndexOf("-");
+    const dayKey = selectedCell.slice(0, idx);
+    const hStr = selectedCell.slice(idx + 1);
+    const col = WEEK.findIndex((d) => d.key === dayKey);
+    if (col < 0) return null;
+    const a = agg(col, Number(hStr));
+    return { label: `${WEEK[col].weekday} ${WEEK[col].label} ${hh(Number(hStr))}`, ...a };
   })();
 
   if (confirmed) {
-    return <ConfirmedScreen when={confirmed.when} participantCount={MEETING.total} title={MEETING.title} />;
+    return <ConfirmedScreen when={confirmed.when} participantCount={TOTAL} title={MEETING.title} />;
   }
 
   const ScenarioSwitch = (
@@ -68,7 +72,7 @@ export function DashboardScreen() {
       <span className="type-d2" style={{ color: "var(--color-text-tertiary)" }}>데모 시나리오</span>
       {([["normal", "정상"], ["allBurden", "전부 부담"], ["empty", "응답 0"]] as [Scenario, string][]).map(([s, label]) => (
         <button key={s} className="ds-radio type-d1" aria-pressed={scenario === s}
-          onClick={() => { setScenario(s); setPicked(s === "empty" ? null : "화-14"); }}
+          onClick={() => { setScenario(s); setPicked(s === "empty" ? null : `${D_WED.key}-15`); }}
           style={{ padding: "4px 10px" }}>{label}</button>
       ))}
     </Inline>
@@ -87,7 +91,7 @@ export function DashboardScreen() {
                 <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>주최자 현황보드</span>
               </Stack>
             </Inline>
-            <span className="sf-badge type-d1">응답 {responded}/{MEETING.total}</span>
+            <span className="sf-badge type-d1">응답 {responded}/{TOTAL}</span>
           </Inline>
         </PageContainer>
       </div>
@@ -107,7 +111,6 @@ export function DashboardScreen() {
           </header>
 
           {responded === 0 ? (
-            /* 예외: 응답 0명 empty state */
             <div className="ds-candidate" style={{ padding: "var(--space-scale-48)", textAlign: "center" }}>
               <Stack gap="md" align="center">
                 <span className="type-h5">아직 응답이 없어요</span>
@@ -119,37 +122,38 @@ export function DashboardScreen() {
             </div>
           ) : (
             <>
-              {/* 진행률 */}
               <Stack gap="xs">
                 <Inline justify="between">
                   <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>응답 진행률</span>
                   <span className="type-d1" style={{ color: "var(--color-text-secondary)" }}>
-                    {responded} / {MEETING.total}명 · 미응답 {MEETING.total - responded}명
+                    {responded} / {TOTAL}명 · 미응답 {TOTAL - responded}명
                   </span>
                 </Inline>
                 <div className="sf-progress-track"><div className="sf-progress-fill" style={{ width: `${progressPct}%` }} /></div>
               </Stack>
 
-              {/* 히트맵 */}
               <Column>
                 <Col span={8}>
                   <Stack gap="sm">
                     <span className="type-s6">참여 가능 히트맵</span>
-                    <div className="ds-grid" style={{ gridTemplateColumns: `56px repeat(${WEEKDAYS.length}, 1fr)` }}>
+                    <div className="ds-grid" style={{ gridTemplateColumns: `56px repeat(${WEEK.length}, 1fr)` }}>
                       <span aria-hidden />
-                      {WEEKDAYS.map((d) => (
-                        <div key={d} className="ds-grid-head" style={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                          <span className="type-d1" style={{ color: "var(--color-text-secondary)" }}>{d}</span>
-                          <span className="type-d3" style={{ color: "var(--color-text-tertiary)" }}>{DATE_OF[d]}</span>
+                      {WEEK.map((d) => (
+                        <div key={d.key} className="ds-grid-head" style={{ display: "flex", flexDirection: "column", gap: 1, opacity: d.past ? 0.5 : 1 }}>
+                          <span className="type-d1" style={{ color: "var(--color-text-secondary)" }}>{d.weekday}</span>
+                          <span className="type-d3" style={{ color: "var(--color-text-tertiary)" }}>{d.label}</span>
                         </div>
                       ))}
                       {HOURS.map((h) => (
                         <Fragment key={h}>
                           <span className="ds-grid-time type-d3" style={{ alignSelf: "center" }}>{hh(h)}</span>
-                          {WEEKDAYS.map((d, di) => {
-                            const key = `${d}-${h}`;
+                          {WEEK.map((d, di) => {
+                            const key = `${d.key}-${h}`;
+                            if (d.past) {
+                              return <div key={key} className="sf-heatcell" data-disabled aria-disabled style={{ cursor: "not-allowed" }} />;
+                            }
                             const { available, burden } = agg(di, h);
-                            const ratio = available / MEETING.total;
+                            const ratio = available / TOTAL;
                             const strong = ratio > 0.55;
                             return (
                               <div
@@ -159,7 +163,7 @@ export function DashboardScreen() {
                                 style={{ background: `color-mix(in srgb, var(--color-brand-primary) ${Math.round(ratio * 85 + 4)}%, var(--color-bg-surface))` }}
                                 onClick={() => setSelectedCell(key)}
                                 role="button"
-                                aria-label={`${d} ${hh(h)} 참여 ${available}명 부담 ${burden}명`}
+                                aria-label={`${d.weekday} ${d.label} ${hh(h)} 참여 ${available}명 부담 ${burden}명`}
                               >
                                 <span className="type-d3" style={{ color: strong ? "var(--palette-grey-900)" : "var(--color-text-tertiary)" }}>{available}</span>
                                 {burden > 0 && <span className="burdendot" aria-hidden />}
@@ -192,7 +196,6 @@ export function DashboardScreen() {
                 </Col>
               </Column>
 
-              {/* 예외: 완벽한 후보 없음 안내 */}
               {noPerfect && (
                 <div className="sf-heat-detail" style={{ borderColor: "var(--color-semantic-warning)" }}>
                   <span className="type-b5" style={{ color: "var(--color-text-warning)" }}>
@@ -201,7 +204,6 @@ export function DashboardScreen() {
                 </div>
               )}
 
-              {/* 추천 Top2 */}
               <Stack gap="sm">
                 <span className="type-s6">추천 후보 Top 2 · 부담이 가장 적은 시간</span>
                 <Column>
@@ -212,16 +214,15 @@ export function DashboardScreen() {
                         tabIndex={0}
                         onClick={() => setPicked(c.key)}
                         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setPicked(c.key); }}
-                        style={{ borderRadius: "var(--radius-container-md)", outline: picked === c.key ? "2px solid var(--color-border-brand)" : "2px solid transparent", cursor: "pointer" }}
+                        style={{ cursor: "pointer" }}
                       >
-                        <CandidateCard when={c.when} total={MEETING.total} available={c.available} burden={c.burden} recommended={c.recommended} />
+                        <CandidateCard when={c.when} total={TOTAL} available={c.available} burden={c.burden} recommended={c.recommended} selected={picked === c.key} />
                       </div>
                     </Col>
                   ))}
                 </Column>
               </Stack>
 
-              {/* 확정 */}
               <Inline gap="md" align="center" wrap>
                 <CTAButton disabled={!pickedCand} onAdvance={() => setConfirmed(pickedCand)}>이 시간으로 확정</CTAButton>
                 <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>

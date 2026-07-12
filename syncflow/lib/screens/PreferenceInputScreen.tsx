@@ -11,22 +11,11 @@ import { CTAButton } from "@/lib/components/ui/CTAButton";
 import { MemoModal, type MemoRule } from "@/lib/components/product/MemoModal";
 import { Logo } from "@/lib/components/site/Logo";
 import { PREFERENCE_LEVELS, type PreferenceKey } from "@/lib/product/preference";
+import { WEEK, HOURS, hh, MEETING } from "@/lib/product/schedule";
 
-// Meeting context (in the real app this comes from the invite link).
-const MEETING = {
-  title: "3분기 킥오프 미팅",
-  organizer: "김서연",
-  durationLabel: "1시간",
-  rangeLabel: "다음 주 평일 (7/14–7/18)",
-  dday: 3,
-};
-const WEEKDAYS = ["월", "화", "수", "목", "금"];
-// 조율 기간 = 지정된 주(다음 주 평일). 요일별 구체 일자.
-const DATE_OF: Record<string, string> = { "월": "7/14", "화": "7/15", "수": "7/16", "목": "7/17", "금": "7/18" };
-const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17]; // 09:00–18:00, 1h slots
-const cellKey = (d: string, h: number) => `${d}-${h}`;
+const cellKey = (dayKey: string, h: number) => `${dayKey}-${h}`;
 const INTENSITY_LABEL = Object.fromEntries(PREFERENCE_LEVELS.map((l) => [l.key, l.label])) as Record<PreferenceKey, string>;
-const hh = (h: number) => `${String(h).padStart(2, "0")}:00`;
+const ACTIVE_DAYS = WEEK.filter((d) => !d.past);
 
 interface ConditionChip { id: number; rule: MemoRule; label: string; }
 
@@ -57,21 +46,20 @@ export function PreferenceInputScreen() {
     return c;
   }, [cells]);
 
-  // Paint the grid from a saved condition.
+  // Paint from a saved condition — only on active (non-past) days.
   const applyRule = useCallback((rule: MemoRule) => {
-    const targetDays = rule.days.length ? rule.days : [WEEKDAYS[0]];
+    const targetWeekdays = rule.days.length ? rule.days : [ACTIVE_DAYS[0]?.weekday];
     setCells((prev) => {
       const next = { ...prev };
-      targetDays.forEach((d) => {
+      ACTIVE_DAYS.filter((d) => targetWeekdays.includes(d.weekday)).forEach((d) => {
         for (let h = rule.startHour; h < rule.endHour; h++) {
-          if (HOURS.includes(h)) next[cellKey(d, h)] = rule.intensity;
+          if (HOURS.includes(h)) next[cellKey(d.key, h)] = rule.intensity;
         }
       });
       return next;
     });
   }, []);
 
-  // Saving a condition creates a reusable chip (auto-select control) and applies it once.
   function saveCondition(rule: MemoRule) {
     const days = rule.days.length ? rule.days.join("·") : "1회";
     const label = rule.label || `${INTENSITY_LABEL[rule.intensity]} · ${days} ${hh(rule.startHour)}–${hh(rule.endHour)}`;
@@ -130,7 +118,7 @@ export function PreferenceInputScreen() {
               <Stack gap="xs">
                 <span className="type-s6">{MEETING.title}</span>
                 <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>
-                  주최 {MEETING.organizer} · 소요 {MEETING.durationLabel} · {MEETING.rangeLabel}
+                  주최 {MEETING.organizer} · 소요 {MEETING.duration} · {MEETING.range}
                 </span>
               </Stack>
             </Inline>
@@ -144,7 +132,7 @@ export function PreferenceInputScreen() {
           <header>
             <h1 className="type-h4">언제가 좋으세요?</h1>
             <p className="ds-lead type-b3" style={{ color: "var(--color-text-secondary)", marginTop: 8 }}>
-              가능/불가가 아니라 <strong>얼마나 괜찮은지</strong>를 칠해 주세요. 브러시를 고르고 시간표를 드래그하면 됩니다.
+              가능/불가가 아니라 <strong>얼마나 괜찮은지</strong>를 칠해 주세요. 브러시를 고르고 시간표를 드래그하면 됩니다. 지난 날짜는 선택할 수 없어요.
             </p>
           </header>
 
@@ -189,26 +177,27 @@ export function PreferenceInputScreen() {
           {/* Grid */}
           <div
             className="ds-grid"
-            style={{ gridTemplateColumns: `64px repeat(${WEEKDAYS.length}, 1fr)`, maxWidth: 720 }}
+            style={{ gridTemplateColumns: `64px repeat(${WEEK.length}, 1fr)`, maxWidth: 720 }}
             onMouseLeave={() => setPainting(false)}
           >
             <span aria-hidden />
-            {WEEKDAYS.map((d) => (
-              <div key={d} className="ds-grid-head" style={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                <span className="type-s6" style={{ color: "var(--color-text-secondary)" }}>{d}</span>
-                <span className="type-d3" style={{ color: "var(--color-text-tertiary)" }}>{DATE_OF[d]}</span>
+            {WEEK.map((d) => (
+              <div key={d.key} className="ds-grid-head" style={{ display: "flex", flexDirection: "column", gap: 1, opacity: d.past ? 0.5 : 1 }}>
+                <span className="type-s6" style={{ color: "var(--color-text-secondary)" }}>{d.weekday}</span>
+                <span className="type-d3" style={{ color: "var(--color-text-tertiary)" }}>{d.label}</span>
               </div>
             ))}
             {HOURS.map((h) => (
               <Fragment key={h}>
-                <span className="ds-grid-time type-d2" style={{ alignSelf: "center" }}>{String(h).padStart(2, "0")}:00</span>
-                {WEEKDAYS.map((d) => {
-                  const key = cellKey(d, h);
+                <span className="ds-grid-time type-d2" style={{ alignSelf: "center" }}>{hh(h)}</span>
+                {WEEK.map((d) => {
+                  const key = cellKey(d.key, h);
                   return (
                     <TimeSlotCell
                       key={key}
                       level={cells[key]}
-                      label={`${d} ${h}:00`}
+                      disabled={d.past}
+                      label={`${d.weekday} ${d.label} ${hh(h)}`}
                       onMouseDown={() => { setPainting(true); paint(key); }}
                       onMouseEnter={() => { if (painting) paint(key); }}
                     />
@@ -234,7 +223,7 @@ export function PreferenceInputScreen() {
       </PageContainer>
 
       {memoOpen && (
-        <MemoModal weekdays={WEEKDAYS} hours={HOURS} onApply={saveCondition} onClose={() => setMemoOpen(false)} />
+        <MemoModal weekdays={ACTIVE_DAYS.map((d) => d.weekday)} hours={HOURS} onApply={saveCondition} onClose={() => setMemoOpen(false)} />
       )}
     </>
   );

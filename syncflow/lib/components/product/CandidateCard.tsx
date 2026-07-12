@@ -9,15 +9,17 @@ export interface CandidateCardProps {
   burden: number;        // how many feel burdened (aggregate)
   recommended?: boolean;
   confirmed?: boolean;
+  selected?: boolean;
 }
 
 /**
  * A recommended candidate time. Confirmed spec: show aggregate attend/burden
  * counts (never who). Recommended = least burden, marked with brand gradient.
+ * Selection is a single 2px brand border (no outer outline → no doubled stroke).
  */
-export function CandidateCard({ when, total, available, burden, recommended, confirmed }: CandidateCardProps) {
+export function CandidateCard({ when, total, available, burden, recommended, confirmed, selected }: CandidateCardProps) {
   return (
-    <div className="ds-candidate" data-recommended={recommended || undefined} data-confirmed={confirmed || undefined}>
+    <div className="ds-candidate" data-recommended={recommended || undefined} data-confirmed={confirmed || undefined} data-selected={selected || undefined}>
       <Stack gap="md">
         <Inline justify="between" align="start">
           <Stack gap="xs">

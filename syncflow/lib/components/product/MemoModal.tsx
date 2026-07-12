@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Stack } from "@/lib/components/layout/Stack";
 import { Inline } from "@/lib/components/layout/Inline";
 import { Button } from "@/lib/components/ui/Button";
+import { Select } from "@/lib/components/ui/Select";
 import type { PreferenceKey } from "@/lib/product/preference";
 
 export interface MemoRule {
@@ -89,14 +90,20 @@ export function MemoModal({
           {/* 3. 적용 시간대 */}
           <div>
             <span className="ds-field-label type-d1">3 · 적용 시간대</span>
-            <Inline gap="sm">
-              <select className="ds-input ds-select type-b5" value={startHour} onChange={(e) => setStartHour(Number(e.target.value))} style={{ width: "auto" }}>
-                {hours.map((h) => <option key={h} value={h}>{String(h).padStart(2, "0")}:00</option>)}
-              </select>
+            <Inline gap="sm" align="center">
+              <Select
+                aria-label="시작 시간"
+                value={String(startHour)}
+                onChange={(v) => setStartHour(Number(v))}
+                options={hours.map((h) => ({ value: String(h), label: `${String(h).padStart(2, "0")}:00` }))}
+              />
               <span className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>~</span>
-              <select className="ds-input ds-select type-b5" value={endHour} onChange={(e) => setEndHour(Number(e.target.value))} style={{ width: "auto" }}>
-                {hours.map((h) => <option key={h} value={h + 1}>{String(h + 1).padStart(2, "0")}:00</option>)}
-              </select>
+              <Select
+                aria-label="종료 시간"
+                value={String(endHour)}
+                onChange={(v) => setEndHour(Number(v))}
+                options={hours.map((h) => ({ value: String(h + 1), label: `${String(h + 1).padStart(2, "0")}:00` }))}
+              />
             </Inline>
             {timeInvalid && <p className="type-d1" style={{ color: "var(--color-text-error)", marginTop: 6 }}>시작 시간이 종료 시간보다 빨라야 합니다.</p>}
           </div>

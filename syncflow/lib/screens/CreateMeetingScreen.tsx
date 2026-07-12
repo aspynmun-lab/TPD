@@ -7,17 +7,24 @@ import { Stack } from "@/lib/components/layout/Stack";
 import { Inline } from "@/lib/components/layout/Inline";
 import { Button } from "@/lib/components/ui/Button";
 import { CTAButton } from "@/lib/components/ui/CTAButton";
+import { Select } from "@/lib/components/ui/Select";
+import { DatePicker } from "@/lib/components/ui/DatePicker";
 import { Logo } from "@/lib/components/site/Logo";
+import { TODAY_ISO } from "@/lib/product/schedule";
 
 export function CreateMeetingScreen() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [participants, setParticipants] = useState<string[]>(["김서연", "이준호"]);
   const [entry, setEntry] = useState("");
-  const [rangeLabel, setRangeLabel] = useState("다음 주 평일 (7/14–7/18)");
-  const [deadline, setDeadline] = useState("2026-07-13T18:00");
+  const [rangeStart, setRangeStart] = useState(TODAY_ISO);      // 오늘부터 (이번 주도 가능)
+  const [rangeEnd, setRangeEnd] = useState("2026-07-17");
+  const [duration, setDuration] = useState("60");               // 고정 1시간
+  const [deadline, setDeadline] = useState("2026-07-16");
 
-  const canSubmit = title.trim().length > 0 && participants.length > 0;
+  const rangeInvalid = rangeEnd < rangeStart;
+  const deadlineInvalid = deadline > rangeEnd; // 마감일이 조율 기간(종료)보다 이후면 안 됨
+  const canSubmit = title.trim().length > 0 && participants.length > 0 && !rangeInvalid && !deadlineInvalid;
 
   function addParticipant() {
     const v = entry.trim();
@@ -69,26 +76,28 @@ export function CreateMeetingScreen() {
             )}
           </div>
 
-          {/* 소요시간 (고정) */}
+          {/* 소요시간 (고정 1시간) — Select(단일 옵션) */}
           <div>
             <span className="ds-field-label type-d1">소요 시간</span>
-            <input className="ds-input type-b4" value="1시간" disabled aria-label="소요 시간 1시간 고정" />
+            <Select aria-label="소요 시간" value={duration} onChange={setDuration} options={[{ value: "60", label: "1시간 (고정)" }]} fullWidth />
           </div>
 
-          {/* 조율 기간 (자유입력 불가 — 프리셋 선택) */}
+          {/* 조율 기간 — 날짜 범위 (오늘부터, 이번 주도 가능) */}
           <div>
             <span className="ds-field-label type-d1">조율 기간</span>
-            <select className="ds-input ds-select type-b4" value={rangeLabel} onChange={(e) => setRangeLabel(e.target.value)}>
-              <option>이번 주 평일 (7/7–7/11)</option>
-              <option>다음 주 평일 (7/14–7/18)</option>
-              <option>다다음 주 평일 (7/21–7/25)</option>
-            </select>
+            <Inline gap="sm" align="center">
+              <DatePicker aria-label="조율 시작일" value={rangeStart} onChange={setRangeStart} minDate={TODAY_ISO} fullWidth />
+              <span className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>~</span>
+              <DatePicker aria-label="조율 종료일" value={rangeEnd} onChange={setRangeEnd} minDate={rangeStart} fullWidth />
+            </Inline>
+            {rangeInvalid && <p className="type-d1" style={{ color: "var(--color-text-error)", marginTop: 6 }}>종료일이 시작일보다 빨라요.</p>}
           </div>
 
-          {/* 마감일 */}
+          {/* 마감일 — 조율 종료일 이전이어야 함 */}
           <div>
             <span className="ds-field-label type-d1">응답 마감일</span>
-            <input className="ds-input type-b4" type="datetime-local" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
+            <DatePicker aria-label="응답 마감일" value={deadline} onChange={setDeadline} minDate={TODAY_ISO} fullWidth />
+            {deadlineInvalid && <p className="type-d1" style={{ color: "var(--color-text-error)", marginTop: 6 }}>마감일은 조율 기간(종료일)보다 이전이어야 해요.</p>}
           </div>
         </Stack>
 

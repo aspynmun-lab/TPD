@@ -22,6 +22,7 @@ const groups: { label: string; links: { href: string; label: string }[] }[] = [
     label: "Components",
     links: [
       { href: "/components/button", label: "Button" },
+      { href: "/components/form", label: "Form controls" },
       { href: "/components/preference", label: "Preference input" },
       { href: "/components/coordination", label: "Coordination" },
       { href: "/components/participant", label: "Participant" },

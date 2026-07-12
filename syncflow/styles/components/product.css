@@ -60,6 +60,11 @@
 .ds-slot[data-level="okay"]        { background: var(--color-comp-pref-okay-bg); border-color: var(--color-comp-pref-okay-border); }
 .ds-slot[data-level="good"]        { background: var(--color-comp-pref-good-bg); border-color: var(--color-comp-pref-good-border); }
 .ds-slot:hover { border-color: var(--color-border-brand); }
+.ds-slot[data-disabled] {
+  background: repeating-linear-gradient(45deg, var(--color-bg-canvas), var(--color-bg-canvas) 5px, var(--color-bg-subtle) 5px, var(--color-bg-subtle) 6px);
+  border-color: var(--color-border-subtle); cursor: not-allowed; opacity: 0.55;
+}
+.ds-slot[data-disabled]:hover { border-color: var(--color-border-subtle); }
 
 /* --- AvailabilityGrid ----------------------------------------------------- */
 .ds-grid { display: grid; gap: var(--space-scale-4); user-select: none; }
@@ -78,6 +83,8 @@
 }
 .ds-candidate[data-recommended="true"] { border-color: var(--color-border-brand); }
 .ds-candidate[data-confirmed="true"] { border-color: var(--color-semantic-success); }
+/* Selection = single 2px brand border (border-box → no size shift, no doubled stroke) */
+.ds-candidate[data-selected="true"] { border-width: 2px; border-color: var(--color-border-brand); }
 .ds-candidate:hover { transform: translateY(var(--motion-lift)); box-shadow: var(--shadow-elevation-mid); }
 
 .ds-badge-reco {
@@ -223,6 +230,11 @@
 }
 .sf-heatcell:hover { border-color: var(--color-border-brand); }
 .sf-heatcell[data-selected="true"] { border-color: var(--color-border-brand); box-shadow: 0 0 0 2px var(--color-bg-accent-subtle); }
+.sf-heatcell[data-disabled] {
+  background: repeating-linear-gradient(45deg, var(--color-bg-canvas), var(--color-bg-canvas) 5px, var(--color-bg-subtle) 5px, var(--color-bg-subtle) 6px) !important;
+  cursor: not-allowed; opacity: 0.5;
+}
+.sf-heatcell[data-disabled]:hover { border-color: var(--color-border-subtle); }
 .sf-heatcell .burdendot {
   position: absolute; top: 4px; right: 4px; width: 6px; height: 6px;
   border-radius: var(--radius-full); background: var(--color-semantic-warning);

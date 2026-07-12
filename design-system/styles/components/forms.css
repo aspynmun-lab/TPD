@@ -1,0 +1,67 @@
+/* ============================================================================
+ * TPD Design System — Form controls: Select + DatePicker (TIER 3)
+ * Custom (non-native) dropdown & calendar, fully token-styled.
+ * ==========================================================================*/
+
+.ds-select-wrap { position: relative; display: inline-block; }
+
+.ds-select-trigger {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: var(--space-scale-8);
+  width: 100%; min-width: 160px;
+  padding: var(--space-scale-12) var(--space-scale-16);
+  background: var(--color-bg-canvas);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-interactive-sm);
+  color: var(--color-text-primary);
+  cursor: pointer; text-align: left;
+  transition: border-color var(--motion-control), background-color var(--motion-control);
+}
+.ds-select-trigger:hover { border-color: var(--color-border-hover); }
+.ds-select-trigger[data-open] { border-color: var(--color-border-brand); }
+.ds-select-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
+.ds-select-placeholder { color: var(--color-text-tertiary); }
+
+.ds-select-menu {
+  position: absolute; z-index: 30; top: calc(100% + 4px); left: 0; right: 0;
+  list-style: none; margin: 0; padding: var(--space-scale-4);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-interactive-sm);
+  box-shadow: var(--shadow-elevation-high);
+  max-height: 264px; overflow-y: auto;
+  animation: ds-fade-rise var(--motion-duration-fast) var(--motion-easing-enter);
+}
+.ds-select-option {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-scale-8);
+  padding: var(--space-scale-10) var(--space-scale-12);
+  border-radius: var(--radius-xs); color: var(--color-text-secondary); cursor: pointer;
+}
+.ds-select-option:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+.ds-select-option[data-selected] { color: var(--color-text-accent); }
+
+/* DatePicker */
+.ds-datepicker-pop {
+  position: absolute; z-index: 30; top: calc(100% + 4px); left: 0;
+  width: 280px; padding: var(--space-scale-12);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-container-sm);
+  box-shadow: var(--shadow-elevation-high);
+  animation: ds-fade-rise var(--motion-duration-fast) var(--motion-easing-enter);
+}
+.ds-dp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-scale-8); }
+.ds-dp-nav {
+  display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px;
+  border: none; background: transparent; border-radius: var(--radius-interactive-sm); cursor: pointer;
+}
+.ds-dp-nav:hover { background: var(--color-bg-subtle); }
+.ds-dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.ds-dp-wd { text-align: center; color: var(--color-text-tertiary); padding: var(--space-scale-4) 0; }
+.ds-dp-day {
+  aspect-ratio: 1; border: none; background: transparent; border-radius: var(--radius-interactive-sm);
+  color: var(--color-text-primary); cursor: pointer;
+  transition: background-color var(--motion-control), color var(--motion-control);
+}
+.ds-dp-day:hover:not(:disabled) { background: var(--color-bg-subtle); }
+.ds-dp-day[data-selected] { background: var(--color-accent-interaction); color: var(--color-on-accent-interaction); }
+.ds-dp-day:disabled { color: var(--color-text-disabled); cursor: not-allowed; opacity: 0.5; }

@@ -7,12 +7,14 @@
 
 :root {
   /* Spacing (inset + gaps) ------------------------------------------------ */
-  --space-comp-inset-button-lg-x: var(--space-scale-24);
-  --space-comp-inset-button-lg-y: var(--space-scale-16);
+  /* Matches the Kairo reference exactly: all sizes share 20x / 12y inset;
+     sizes differ only by font-size (14 / 16 / 18). */
+  --space-comp-inset-button-lg-x: var(--space-scale-20);
+  --space-comp-inset-button-lg-y: var(--space-scale-12);
   --space-comp-inset-button-md-x: var(--space-scale-20);
   --space-comp-inset-button-md-y: var(--space-scale-12);
-  --space-comp-inset-button-sm-x: var(--space-scale-16);
-  --space-comp-inset-button-sm-y: var(--space-scale-8);
+  --space-comp-inset-button-sm-x: var(--space-scale-20);
+  --space-comp-inset-button-sm-y: var(--space-scale-12);
   --space-comp-gap-icon-label: var(--space-scale-8);
 
   /* Shape ----------------------------------------------------------------- */
@@ -63,8 +65,11 @@
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  transition: background-color var(--motion-control), border-color var(--motion-control),
+              color var(--motion-control), opacity var(--motion-control), transform var(--motion-control);
 }
+/* Micro-interaction: tactile press feedback */
+.ds-button:not(:disabled):active { transform: scale(var(--motion-press-scale)); }
 .ds-button[data-full="true"] { width: 100%; }
 
 /* --- Size ----------------------------------------------------------------- */

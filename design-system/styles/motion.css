@@ -1,0 +1,60 @@
+/* ============================================================================
+ * TPD Design System — MICRO-INTERACTIONS / MOTION
+ * Product fit: TPD is a group-scheduling tool where people repeatedly enter,
+ * compare and revise preferences. Motion must stay calm and fast (never
+ * annoying on repeat use), give tactile confirmation when a preference is set,
+ * and reassure on state changes (propose → revise). Adaptive/explanatory
+ * changes animate a touch slower so users can follow *why* something moved.
+ *
+ * Accessibility: everything collapses under prefers-reduced-motion.
+ * ==========================================================================*/
+
+/* --- Utility transitions -------------------------------------------------- */
+.motion-control  { transition: background-color var(--motion-control), border-color var(--motion-control), color var(--motion-control), transform var(--motion-control); }
+.motion-surface  { transition: box-shadow var(--motion-surface), transform var(--motion-surface), background-color var(--motion-surface); }
+.motion-feedback { transition: opacity var(--motion-feedback), transform var(--motion-feedback); }
+
+/* --- Pattern: press feedback (interactive controls) ----------------------- */
+.motion-press:active { transform: scale(var(--motion-press-scale)); }
+
+/* --- Pattern: raise on hover (cards, tappable surfaces) ------------------- */
+.motion-raise { transition: box-shadow var(--motion-surface), transform var(--motion-surface); }
+.motion-raise:hover { transform: translateY(var(--motion-lift)); box-shadow: var(--shadow-elevation-mid); }
+
+/* --- Pattern: selection pop (preference intensity, chips, toggles) -------- */
+@keyframes ds-pop {
+  0%   { transform: scale(1); }
+  55%  { transform: scale(var(--motion-pop-scale)); }
+  100% { transform: scale(1); }
+}
+.motion-pop[data-selected="true"] { animation: ds-pop var(--motion-duration-base) var(--motion-easing-emphasized); }
+
+/* --- Pattern: enter (surfaces appearing: modal, toast, proposal card) ----- */
+@keyframes ds-fade-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.motion-enter { animation: ds-fade-rise var(--motion-duration-slow) var(--motion-easing-enter); }
+
+/* --- Pattern: explain (adaptive recommendation change draws attention) ---- */
+@keyframes ds-explain-glow {
+  0%   { box-shadow: 0 0 0 0 var(--color-border-brand); }
+  40%  { box-shadow: 0 0 0 3px var(--color-bg-accent-subtle); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.motion-explain { animation: ds-explain-glow var(--motion-duration-deliberate) var(--motion-easing-enter); }
+
+/* --- Cards raise by default (docs cards + product surfaces) --------------- */
+.ds-card { transition: box-shadow var(--motion-surface), transform var(--motion-surface), border-color var(--motion-control); }
+
+/* --- Reduced motion: keep color/opacity feedback, drop movement ----------- */
+@media (prefers-reduced-motion: reduce) {
+  .motion-control, .motion-surface, .motion-feedback, .motion-raise, .ds-button, .ds-card {
+    transition-duration: 1ms !important;
+  }
+  .motion-press:active { transform: none; }
+  .motion-raise:hover { transform: none; }
+  .motion-pop[data-selected="true"],
+  .motion-enter,
+  .motion-explain { animation: none; }
+}

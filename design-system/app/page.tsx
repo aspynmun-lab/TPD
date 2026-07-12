@@ -31,6 +31,8 @@ const foundations = [
   { title: "Radius", href: "/foundations/radius", desc: "Scale + interactive/container/surface" },
   { title: "Shadow", href: "/foundations/shadow", desc: "Elevation + ambient + section" },
   { title: "Layout", href: "/foundations/layout", desc: "Stack / Inline / Column / PageContainer" },
+  { title: "Motion", href: "/foundations/motion", desc: "Micro-interactions tuned to the product" },
+  { title: "Components (IA)", href: "/components/inventory", desc: "Inventory for the scheduling flows" },
 ];
 
 export default function Home() {

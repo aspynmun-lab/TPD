@@ -103,8 +103,8 @@
   --shadow-scale-ambient-lg: 0 0 12px 6px #00000033;
 
   /* --- Type primitives -------------------------------------------------- */
-  --font-family-heading: 'SUITE', 'Pretendard', system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --font-family-body: 'Pretendard', system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-family-heading: 'SUITE Variable', 'Pretendard Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-family-body: 'Pretendard Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -112,4 +112,20 @@
   --font-weight-bold: 700;
 
   --letter-spacing-tight: -0.2px; /* every style in the type spec uses -0.2px */
+
+  /* --- Motion primitives ------------------------------------------------ */
+  --motion-duration-instant: 0ms;
+  --motion-duration-fast: 120ms;    /* control feedback (button, toggle) */
+  --motion-duration-base: 180ms;    /* most transitions */
+  --motion-duration-slow: 280ms;    /* surfaces (card, modal enter) */
+  --motion-duration-deliberate: 420ms; /* explanatory / reassurance moments */
+
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);    /* general */
+  --motion-easing-enter: cubic-bezier(0, 0, 0, 1);         /* decelerate in */
+  --motion-easing-exit: cubic-bezier(0.3, 0, 1, 1);        /* accelerate out */
+  --motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1.4);/* tactile pop / spring */
+
+  --motion-lift: -2px;              /* hover translateY for raised surfaces */
+  --motion-press-scale: 0.97;       /* active-press feedback scale */
+  --motion-pop-scale: 1.06;         /* selection pop (preference intensity) */
 }

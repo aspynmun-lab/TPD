@@ -15,11 +15,15 @@ const groups: { label: string; links: { href: string; label: string }[] }[] = [
       { href: "/foundations/radius", label: "Radius" },
       { href: "/foundations/shadow", label: "Shadow" },
       { href: "/foundations/layout", label: "Layout" },
+      { href: "/foundations/motion", label: "Motion" },
     ],
   },
   {
     label: "Components",
-    links: [{ href: "/components/button", label: "Button" }],
+    links: [
+      { href: "/components/inventory", label: "Inventory (IA)" },
+      { href: "/components/button", label: "Button" },
+    ],
   },
 ];
 

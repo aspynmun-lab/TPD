@@ -223,4 +223,14 @@
 
   /* Page container ------------------------------------------------------- */
   --layout-page-max-width: 1280px;
+
+  /* Motion roles --------------------------------------------------------- */
+  /* Product fit (see /foundations/motion): calm, fast, purposeful. Controls
+     respond instantly; surfaces settle gently; adaptive/explanatory changes
+     get a slightly longer, decelerating motion so users can follow the "why". */
+  --motion-control:  var(--motion-duration-fast) var(--motion-easing-standard);
+  --motion-surface:  var(--motion-duration-slow) var(--motion-easing-enter);
+  --motion-feedback: var(--motion-duration-base) var(--motion-easing-standard);
+  --motion-explain:  var(--motion-duration-deliberate) var(--motion-easing-enter);
+  --motion-select:   var(--motion-duration-base) var(--motion-easing-emphasized);
 }

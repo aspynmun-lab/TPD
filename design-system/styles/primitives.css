@@ -128,4 +128,10 @@
   --motion-lift: -2px;              /* hover translateY for raised surfaces */
   --motion-press-scale: 0.97;       /* active-press feedback scale */
   --motion-pop-scale: 1.06;         /* selection pop (preference intensity) */
+
+  /* --- Brand gradient primitive ---------------------------------------- */
+  /* TPD signature teal gradient (matches the product's HMW/emphasis fill). */
+  --gradient-brand-stops: #67e0d9 0%, #00c9d1 50%, #2fd4d6 100%;
+  --gradient-brand: linear-gradient(90deg, var(--gradient-brand-stops));
+  --gradient-brand-diagonal: linear-gradient(135deg, var(--gradient-brand-stops));
 }

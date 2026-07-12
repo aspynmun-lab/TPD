@@ -233,4 +233,11 @@
   --motion-feedback: var(--motion-duration-base) var(--motion-easing-standard);
   --motion-explain:  var(--motion-duration-deliberate) var(--motion-easing-enter);
   --motion-select:   var(--motion-duration-base) var(--motion-easing-emphasized);
+
+  /* Gradient roles ------------------------------------------------------- */
+  /* The brand gradient is the "interaction" accent: strongest-positive
+     preference, recommended candidate, selected/hover emphasis. */
+  --gradient-interactive: var(--gradient-brand);
+  --gradient-interactive-diagonal: var(--gradient-brand-diagonal);
+  --color-on-gradient: var(--palette-grey-900); /* dark label on teal gradient */
 }

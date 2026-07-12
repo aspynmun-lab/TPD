@@ -32,7 +32,13 @@ const foundations = [
   { title: "Shadow", href: "/foundations/shadow", desc: "Elevation + ambient + section" },
   { title: "Layout", href: "/foundations/layout", desc: "Stack / Inline / Column / PageContainer" },
   { title: "Motion", href: "/foundations/motion", desc: "Micro-interactions tuned to the product" },
-  { title: "Components (IA)", href: "/components/inventory", desc: "Inventory for the scheduling flows" },
+];
+
+const components = [
+  { title: "Button", href: "/components/button", desc: "TIER 3 role→token 매핑 레퍼런스" },
+  { title: "Preference input", href: "/components/preference", desc: "4단계 선호 · 시간표 그리드" },
+  { title: "Coordination", href: "/components/coordination", desc: "추천 후보 · 부담 분산" },
+  { title: "Participant", href: "/components/participant", desc: "참석자 · 상태 · 칩" },
 ];
 
 export default function Home() {
@@ -77,6 +83,22 @@ export default function Home() {
                   <Stack gap="xs">
                     <h3 className="type-s2">{f.title}</h3>
                     <p className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>{f.desc}</p>
+                  </Stack>
+                </Link>
+              </Col>
+            ))}
+          </Column>
+        </section>
+
+        <section className="ds-section">
+          <header><h2 className="type-h4">Components</h2></header>
+          <Column>
+            {components.map((c) => (
+              <Col span={4} key={c.title}>
+                <Link href={c.href} className="ds-card" style={{ display: "block", height: "100%" }}>
+                  <Stack gap="xs">
+                    <h3 className="type-s2">{c.title}</h3>
+                    <p className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>{c.desc}</p>
                   </Stack>
                 </Link>
               </Col>

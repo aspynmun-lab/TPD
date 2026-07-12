@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Inline } from "@/lib/components/layout/Inline";
 import { Stack } from "@/lib/components/layout/Stack";
 
-const intensities = ["안돼요", "가능은 해요", "괜찮아요", "완전 좋아요"];
+const intensities = ["불가", "부담", "괜찮음", "좋음"];
 
 /** Interactive micro-interaction demos tuned to the TPD scheduling product. */
 export function MotionDemos() {

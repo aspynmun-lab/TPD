@@ -79,7 +79,8 @@
 
 /* --- Variant: primary ----------------------------------------------------- */
 .ds-button[data-variant="primary"] { background: var(--color-comp-button-primary-bg); color: var(--color-comp-button-primary-label); }
-.ds-button[data-variant="primary"]:hover { background: var(--color-comp-button-primary-bg-hover); }
+/* Interaction: brand gradient sweeps in on hover */
+.ds-button[data-variant="primary"]:hover { background-image: var(--gradient-interactive); }
 .ds-button[data-variant="primary"]:active { background: var(--color-comp-button-primary-bg-pressed); }
 
 /* --- Variant: secondary --------------------------------------------------- */

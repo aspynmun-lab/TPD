@@ -1,0 +1,23 @@
+{
+  "name": "syncflow",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SyncFlow — 6인 회의 조율 서비스 (선호 강도 기반)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.7.3"
+  }
+}

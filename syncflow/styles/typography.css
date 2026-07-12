@@ -1,0 +1,80 @@
+/* ============================================================================
+ * TPD Design System — TYPOGRAPHY
+ * Spec source: attached "SUITE / Pretendard" type sheet (exact values).
+ * Columns per style: font-size / line-height / letter-spacing(-0.2px) / weight.
+ * SUITE      → H1–H5 (headings)
+ * Pretendard → S1–S6 (subtitle), B1–B5 (body), D1–D4 (detail)
+ *
+ * Each style is exposed BOTH as composite tokens (--type-*-…) and as a ready
+ * utility class (.type-h1 … .type-d4).
+ * ==========================================================================*/
+
+:root {
+  /* ---- SUITE / Headings ------------------------------------------------- */
+  --type-h1-font:  var(--font-family-heading);
+  --type-h1-size:  36px;  --type-h1-line: 46px;  --type-h1-weight: var(--font-weight-bold);
+  --type-h2-font:  var(--font-family-heading);
+  --type-h2-size:  36px;  --type-h2-line: 46px;  --type-h2-weight: var(--font-weight-medium);
+  --type-h3-font:  var(--font-family-heading);
+  --type-h3-size:  32px;  --type-h3-line: 44px;  --type-h3-weight: var(--font-weight-bold);
+  --type-h4-font:  var(--font-family-heading);
+  --type-h4-size:  28px;  --type-h4-line: 38px;  --type-h4-weight: var(--font-weight-bold);
+  --type-h5-font:  var(--font-family-heading);
+  --type-h5-size:  24px;  --type-h5-line: 36px;  --type-h5-weight: var(--font-weight-medium);
+
+  /* ---- Pretendard / Subtitle ------------------------------------------- */
+  --type-s1-size: 20px;  --type-s1-line: 24px;  --type-s1-weight: var(--font-weight-bold);
+  --type-s2-size: 20px;  --type-s2-line: 24px;  --type-s2-weight: var(--font-weight-medium);
+  --type-s3-size: 18px;  --type-s3-line: 22px;  --type-s3-weight: var(--font-weight-bold);
+  --type-s4-size: 18px;  --type-s4-line: 22px;  --type-s4-weight: var(--font-weight-semibold);
+  --type-s5-size: 18px;  --type-s5-line: 22px;  --type-s5-weight: var(--font-weight-medium);
+  --type-s6-size: 16px;  --type-s6-line: 20px;  --type-s6-weight: var(--font-weight-semibold);
+
+  /* ---- Pretendard / Body ----------------------------------------------- */
+  --type-b1-size: 20px;  --type-b1-line: 30px;  --type-b1-weight: var(--font-weight-medium);
+  --type-b2-size: 20px;  --type-b2-line: 30px;  --type-b2-weight: var(--font-weight-regular);
+  --type-b3-size: 18px;  --type-b3-line: 28px;  --type-b3-weight: var(--font-weight-medium);
+  --type-b4-size: 16px;  --type-b4-line: 24px;  --type-b4-weight: var(--font-weight-regular);
+  --type-b5-size: 14px;  --type-b5-line: 22px;  --type-b5-weight: var(--font-weight-regular);
+
+  /* ---- Pretendard / Detail --------------------------------------------- */
+  --type-d1-size: 14px;  --type-d1-line: 20px;  --type-d1-weight: var(--font-weight-medium);
+  --type-d2-size: 12px;  --type-d2-line: 16px;  --type-d2-weight: var(--font-weight-medium);
+  --type-d3-size: 10px;  --type-d3-line: 14px;  --type-d3-weight: var(--font-weight-medium);
+  --type-d4-size:  8px;  --type-d4-line: 12px;  --type-d4-weight: var(--font-weight-medium);
+}
+
+/* Headings use SUITE; everything else uses Pretendard (body family). */
+.type-h1, .type-h2, .type-h3, .type-h4, .type-h5 { font-family: var(--font-family-heading); }
+.type-s1, .type-s2, .type-s3, .type-s4, .type-s5, .type-s6,
+.type-b1, .type-b2, .type-b3, .type-b4, .type-b5,
+.type-d1, .type-d2, .type-d3, .type-d4 { font-family: var(--font-family-body); }
+
+.type-h1, .type-h2, .type-h3, .type-h4, .type-h5,
+.type-s1, .type-s2, .type-s3, .type-s4, .type-s5, .type-s6,
+.type-b1, .type-b2, .type-b3, .type-b4, .type-b5,
+.type-d1, .type-d2, .type-d3, .type-d4 { letter-spacing: var(--letter-spacing-tight); margin: 0; }
+
+.type-h1 { font-size: var(--type-h1-size); line-height: var(--type-h1-line); font-weight: var(--type-h1-weight); }
+.type-h2 { font-size: var(--type-h2-size); line-height: var(--type-h2-line); font-weight: var(--type-h2-weight); }
+.type-h3 { font-size: var(--type-h3-size); line-height: var(--type-h3-line); font-weight: var(--type-h3-weight); }
+.type-h4 { font-size: var(--type-h4-size); line-height: var(--type-h4-line); font-weight: var(--type-h4-weight); }
+.type-h5 { font-size: var(--type-h5-size); line-height: var(--type-h5-line); font-weight: var(--type-h5-weight); }
+
+.type-s1 { font-size: var(--type-s1-size); line-height: var(--type-s1-line); font-weight: var(--type-s1-weight); }
+.type-s2 { font-size: var(--type-s2-size); line-height: var(--type-s2-line); font-weight: var(--type-s2-weight); }
+.type-s3 { font-size: var(--type-s3-size); line-height: var(--type-s3-line); font-weight: var(--type-s3-weight); }
+.type-s4 { font-size: var(--type-s4-size); line-height: var(--type-s4-line); font-weight: var(--type-s4-weight); }
+.type-s5 { font-size: var(--type-s5-size); line-height: var(--type-s5-line); font-weight: var(--type-s5-weight); }
+.type-s6 { font-size: var(--type-s6-size); line-height: var(--type-s6-line); font-weight: var(--type-s6-weight); }
+
+.type-b1 { font-size: var(--type-b1-size); line-height: var(--type-b1-line); font-weight: var(--type-b1-weight); }
+.type-b2 { font-size: var(--type-b2-size); line-height: var(--type-b2-line); font-weight: var(--type-b2-weight); }
+.type-b3 { font-size: var(--type-b3-size); line-height: var(--type-b3-line); font-weight: var(--type-b3-weight); }
+.type-b4 { font-size: var(--type-b4-size); line-height: var(--type-b4-line); font-weight: var(--type-b4-weight); }
+.type-b5 { font-size: var(--type-b5-size); line-height: var(--type-b5-line); font-weight: var(--type-b5-weight); }
+
+.type-d1 { font-size: var(--type-d1-size); line-height: var(--type-d1-line); font-weight: var(--type-d1-weight); }
+.type-d2 { font-size: var(--type-d2-size); line-height: var(--type-d2-line); font-weight: var(--type-d2-weight); }
+.type-d3 { font-size: var(--type-d3-size); line-height: var(--type-d3-line); font-weight: var(--type-d3-weight); }
+.type-d4 { font-size: var(--type-d4-size); line-height: var(--type-d4-line); font-weight: var(--type-d4-weight); }

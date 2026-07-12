@@ -1,0 +1,206 @@
+/* ============================================================================
+ * TPD Design System — TIER 3: PRODUCT COMPONENTS
+ * Scheduling-specific components built from the confirmed spec. Colors come
+ * only from role tokens; the brand gradient is the interaction accent
+ * (strongest-positive preference, recommended candidate, selected states).
+ * ==========================================================================*/
+
+:root {
+  /* Preference intensity color roles (4 levels) --------------------------- */
+  --color-comp-pref-unavailable-bg: var(--color-bg-subtle);
+  --color-comp-pref-unavailable-fg: var(--color-text-tertiary);
+  --color-comp-pref-unavailable-border: var(--color-border-default);
+
+  --color-comp-pref-burden-bg: var(--color-bg-warning);
+  --color-comp-pref-burden-fg: var(--color-text-warning);
+  --color-comp-pref-burden-border: var(--color-icon-warning);
+
+  --color-comp-pref-okay-bg: var(--color-bg-accent-subtle);
+  --color-comp-pref-okay-fg: var(--color-text-info);
+  --color-comp-pref-okay-border: var(--color-brand-selection);
+
+  /* good = brand gradient (interaction accent) */
+  --color-comp-pref-good-bg: var(--gradient-interactive);
+  --color-comp-pref-good-fg: var(--color-on-gradient);
+  --color-comp-pref-good-border: var(--color-brand-primary);
+}
+
+/* --- PreferenceScale (segmented 4-level control) -------------------------- */
+.ds-pref-scale { display: inline-flex; gap: var(--space-layout-inline-xs); flex-wrap: wrap; }
+.ds-pref-seg {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: var(--space-scale-8) var(--space-scale-16);
+  border-radius: var(--radius-interactive-lg);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-canvas);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--motion-control), border-color var(--motion-control), color var(--motion-control), transform var(--motion-control);
+}
+.ds-pref-seg:not([aria-pressed="true"]):hover { border-color: var(--color-border-hover); color: var(--color-text-primary); }
+.ds-pref-seg:active { transform: scale(var(--motion-press-scale)); }
+.ds-pref-seg[aria-pressed="true"] { animation: ds-pop var(--motion-duration-base) var(--motion-easing-emphasized); }
+
+.ds-pref-seg[data-level="unavailable"][aria-pressed="true"] { background: var(--color-comp-pref-unavailable-bg); color: var(--color-comp-pref-unavailable-fg); border-color: var(--color-comp-pref-unavailable-border); }
+.ds-pref-seg[data-level="burden"][aria-pressed="true"]      { background: var(--color-comp-pref-burden-bg); color: var(--color-comp-pref-burden-fg); border-color: var(--color-comp-pref-burden-border); }
+.ds-pref-seg[data-level="okay"][aria-pressed="true"]        { background: var(--color-comp-pref-okay-bg); color: var(--color-comp-pref-okay-fg); border-color: var(--color-comp-pref-okay-border); }
+.ds-pref-seg[data-level="good"][aria-pressed="true"]        { background: var(--color-comp-pref-good-bg); color: var(--color-comp-pref-good-fg); border-color: var(--color-comp-pref-good-border); }
+
+/* --- TimeSlotCell --------------------------------------------------------- */
+.ds-slot {
+  border-radius: var(--radius-interactive-sm);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  min-height: 34px;
+  transition: background-color var(--motion-control), border-color var(--motion-control), transform var(--motion-control);
+  cursor: pointer;
+}
+.ds-slot[data-level="unavailable"] { background: var(--color-comp-pref-unavailable-bg); border-color: var(--color-comp-pref-unavailable-border); }
+.ds-slot[data-level="burden"]      { background: var(--color-comp-pref-burden-bg); border-color: var(--color-comp-pref-burden-border); }
+.ds-slot[data-level="okay"]        { background: var(--color-comp-pref-okay-bg); border-color: var(--color-comp-pref-okay-border); }
+.ds-slot[data-level="good"]        { background: var(--color-comp-pref-good-bg); border-color: var(--color-comp-pref-good-border); }
+.ds-slot:hover { border-color: var(--color-border-brand); }
+
+/* --- AvailabilityGrid ----------------------------------------------------- */
+.ds-grid { display: grid; gap: var(--space-scale-4); user-select: none; }
+.ds-grid-head { color: var(--color-text-tertiary); text-align: center; }
+.ds-grid-time { color: var(--color-text-tertiary); text-align: right; padding-right: var(--space-scale-8); white-space: nowrap; }
+
+/* --- CandidateCard -------------------------------------------------------- */
+.ds-candidate {
+  position: relative;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-container-md);
+  padding: var(--space-scale-20);
+  overflow: hidden;
+  transition: box-shadow var(--motion-surface), transform var(--motion-surface), border-color var(--motion-control);
+}
+.ds-candidate[data-recommended="true"] { border-color: var(--color-border-brand); }
+/* recommended accent bar = brand gradient */
+.ds-candidate[data-recommended="true"]::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--gradient-interactive);
+}
+.ds-candidate[data-confirmed="true"] { border-color: var(--color-semantic-success); }
+.ds-candidate[data-confirmed="true"]::before { background: var(--color-semantic-success); }
+.ds-candidate:hover { transform: translateY(var(--motion-lift)); box-shadow: var(--shadow-elevation-mid); }
+
+.ds-badge-reco {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px var(--space-scale-8); border-radius: var(--radius-full);
+  background: var(--gradient-interactive); color: var(--color-on-gradient);
+}
+
+/* --- BurdenMeter ---------------------------------------------------------- */
+.ds-burden-track { height: 8px; border-radius: var(--radius-full); background: var(--color-bg-subtle); overflow: hidden; display: flex; }
+.ds-burden-fill-ok { background: var(--gradient-interactive); height: 100%; transition: width var(--motion-surface); }
+.ds-burden-fill-burden { background: var(--color-semantic-warning); height: 100%; transition: width var(--motion-surface); }
+
+/* --- Avatar --------------------------------------------------------------- */
+.ds-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: var(--radius-full);
+  background: var(--color-bg-accent-subtle); color: var(--color-text-accent);
+  border: 1px solid var(--color-border-default); flex-shrink: 0;
+}
+
+/* --- StatusBadge ---------------------------------------------------------- */
+.ds-status { display: inline-flex; align-items: center; gap: 6px; padding: 2px var(--space-scale-8); border-radius: var(--radius-full); }
+.ds-status::before { content: ""; width: 6px; height: 6px; border-radius: var(--radius-full); background: currentColor; }
+.ds-status[data-tone="done"]    { color: var(--color-text-success); background: var(--color-bg-success); }
+.ds-status[data-tone="waiting"] { color: var(--color-text-tertiary); background: var(--color-bg-subtle); }
+.ds-status[data-tone="accent"]  { color: var(--color-text-accent); background: var(--color-bg-accent-subtle); }
+
+/* --- Chip ----------------------------------------------------------------- */
+.ds-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: var(--space-scale-6) var(--space-scale-12);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-canvas); color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--motion-control), border-color var(--motion-control), color var(--motion-control), transform var(--motion-control);
+}
+.ds-chip:active { transform: scale(var(--motion-press-scale)); }
+.ds-chip[aria-pressed="true"] {
+  background: var(--color-bg-accent-subtle); color: var(--color-text-accent); border-color: var(--color-border-brand);
+  animation: ds-pop var(--motion-duration-base) var(--motion-easing-emphasized);
+}
+.ds-participant-row {
+  display: flex; align-items: center; gap: var(--space-layout-inline-md);
+  padding: var(--space-scale-12) var(--space-scale-16);
+  border: 1px solid var(--color-border-default); border-radius: var(--radius-container-sm);
+  background: var(--color-bg-surface);
+}
+
+/* --- Modal (메모 설정) ----------------------------------------------------- */
+.ds-modal-overlay {
+  position: fixed; inset: 0; z-index: 50;
+  background: color-mix(in srgb, var(--palette-black) 62%, transparent);
+  display: flex; align-items: center; justify-content: center; padding: var(--space-scale-24);
+  animation: ds-fade-rise var(--motion-duration-base) var(--motion-easing-enter);
+}
+.ds-modal {
+  width: 100%; max-width: 460px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-container-md);
+  box-shadow: var(--shadow-elevation-high);
+  padding: var(--space-scale-24);
+}
+.ds-radio-row { display: flex; gap: var(--space-scale-8); flex-wrap: wrap; }
+.ds-radio {
+  padding: var(--space-scale-8) var(--space-scale-16); border-radius: var(--radius-interactive-lg);
+  border: 1px solid var(--color-border-default); background: var(--color-bg-canvas);
+  color: var(--color-text-secondary); cursor: pointer;
+  transition: background-color var(--motion-control), border-color var(--motion-control), color var(--motion-control), transform var(--motion-control);
+}
+.ds-radio:active { transform: scale(var(--motion-press-scale)); }
+.ds-radio[aria-pressed="true"] { background: var(--color-bg-accent-subtle); color: var(--color-text-accent); border-color: var(--color-border-brand); }
+.ds-field-label { color: var(--color-text-tertiary); display: block; margin-bottom: var(--space-scale-8); }
+.ds-input {
+  width: 100%; padding: var(--space-scale-12) var(--space-scale-16);
+  background: var(--color-bg-canvas); border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-interactive-sm); color: var(--color-text-primary);
+  font: inherit; letter-spacing: var(--letter-spacing-tight);
+}
+.ds-input:focus-visible { border-color: var(--color-border-brand); }
+.ds-select { appearance: none; }
+.ds-daytoggle {
+  width: 40px; height: 40px; border-radius: var(--radius-interactive-sm);
+  border: 1px solid var(--color-border-default); background: var(--color-bg-canvas);
+  color: var(--color-text-secondary); cursor: pointer;
+  transition: background-color var(--motion-control), border-color var(--motion-control), color var(--motion-control);
+}
+.ds-daytoggle[aria-pressed="true"] { background: var(--color-bg-accent-subtle); color: var(--color-text-accent); border-color: var(--color-border-brand); }
+.ds-daytoggle:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* App shell for product screens */
+.sf-topbar { border-bottom: 1px solid var(--color-border-default); background: var(--color-bg-surface); }
+.sf-badge {
+  display: inline-flex; align-items: center; padding: 2px var(--space-scale-8);
+  border-radius: var(--radius-full); background: var(--color-bg-accent-subtle); color: var(--color-text-accent);
+}
+
+/* --- SyncFlow logo (theme-aware) ------------------------------------------ */
+.sf-logo {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.4px;
+  display: inline-block;
+}
+.sf-logo[data-variant="gradient"] {
+  background: var(--color-accent-interaction);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.sf-logo[data-variant="solid"] { color: var(--color-brand-primary); }
+/* Light mode: gradient wordmark becomes solid grey-900 */
+:root[data-theme="light"] .sf-logo[data-variant="gradient"] {
+  background: none;
+  color: var(--palette-grey-900);
+  -webkit-text-fill-color: var(--palette-grey-900);
+}

@@ -1,0 +1,137 @@
+/* ============================================================================
+ * TPD Design System — TIER 1: PRIMITIVES
+ * Raw, context-free values. Never reference these directly in components;
+ * always go through TIER 2 role tokens (semantic.css).
+ * Palette source: TPD brand color sheet (teal / orange / grey).
+ * Functional status hues (red/green) are the minimal set added for
+ * error/success feedback only — not part of the 3-hue brand palette.
+ * ==========================================================================*/
+
+:root {
+  /* --- Base ------------------------------------------------------------- */
+  --palette-white: #ffffff;
+  --palette-black: #000000;
+
+  /* --- Blue (teal) — BRAND PRIMARY ------------------------------------- */
+  --palette-blue-50:  #e6fafa;
+  --palette-blue-100: #b0eef1;
+  --palette-blue-200: #8ae6ea;
+  --palette-blue-300: #54dbe0;
+  --palette-blue-400: #33d4da;
+  --palette-blue-500: #00c9d1;
+  --palette-blue-600: #00b7be;
+  --palette-blue-700: #008f94;
+  --palette-blue-800: #006f73;
+  --palette-blue-900: #005458;
+
+  /* --- Orange — BRAND SECONDARY ---------------------------------------- */
+  --palette-orange-50:  #fdf4ea;
+  --palette-orange-100: #f9debe;
+  --palette-orange-200: #f6cd9e;
+  --palette-orange-300: #f2b772;
+  --palette-orange-400: #efa957;
+  --palette-orange-500: #eb932d;
+  --palette-orange-600: #d68629;
+  --palette-orange-700: #a76820;
+  --palette-orange-800: #815119;
+  --palette-orange-900: #633e13;
+
+  /* --- Grey — NEUTRAL --------------------------------------------------- */
+  --palette-grey-50:  #ececec;
+  --palette-grey-100: #c5c5c5;
+  --palette-grey-200: #a9a9a9;
+  --palette-grey-300: #828282;
+  --palette-grey-400: #696969;
+  --palette-grey-500: #444444;
+  --palette-grey-600: #3e3e3e;
+  --palette-grey-700: #303030;
+  --palette-grey-800: #252525;
+  --palette-grey-900: #1d1d1d;
+
+  /* --- Red — FUNCTIONAL: error only (dark-tuned) ----------------------- */
+  --palette-red-100: #fde8e8;
+  --palette-red-300: #f4a3a6;
+  --palette-red-400: #f2777c;
+  --palette-red-500: #ef5a60;
+  --palette-red-600: #e5484d;
+  --palette-red-700: #c13539;
+  --palette-red-900: #4d1114;
+
+  /* --- Green — FUNCTIONAL: success only (dark-tuned) ------------------- */
+  --palette-green-100: #e3f6ec;
+  --palette-green-300: #7ed6a3;
+  --palette-green-400: #4fce89;
+  --palette-green-500: #35c078;
+  --palette-green-600: #23a866;
+  --palette-green-700: #1a7d4d;
+  --palette-green-900: #0d3b25;
+
+  /* --- Spacing scale (px) ---------------------------------------------- */
+  --space-scale-2:  2px;
+  --space-scale-4:  4px;
+  --space-scale-6:  6px;
+  --space-scale-8:  8px;
+  --space-scale-10: 10px;
+  --space-scale-12: 12px;
+  --space-scale-16: 16px;
+  --space-scale-20: 20px;
+  --space-scale-24: 24px;
+  --space-scale-32: 32px;
+  --space-scale-40: 40px;
+  --space-scale-48: 48px;
+  --space-scale-60: 60px;
+  --space-scale-64: 64px;
+  --space-scale-80: 80px;
+
+  /* --- Radius scale ----------------------------------------------------- */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  24px;
+  --radius-3xl:  40px;
+  --radius-4xl:  48px;
+  --radius-full: 9999px;
+
+  /* --- Shadow scale ----------------------------------------------------- */
+  --shadow-scale-1: 0 1px 4px 0 #00000059;
+  --shadow-scale-2: 4px 4px 20px -2px #00000066;
+  --shadow-scale-3: 5px 5px 34px -1px #00000073;
+  --shadow-scale-ambient-sm: 0 0 8px 4px #0000001a;
+  --shadow-scale-ambient-md: 0 0 8px 4px #00000026;
+  --shadow-scale-ambient-lg: 0 0 12px 6px #00000033;
+
+  /* --- Type primitives -------------------------------------------------- */
+  --font-family-heading: 'SUITE Variable', 'Pretendard Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-family-body: 'Pretendard Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --letter-spacing-tight: -0.2px; /* every style in the type spec uses -0.2px */
+
+  /* --- Motion primitives ------------------------------------------------ */
+  --motion-duration-instant: 0ms;
+  --motion-duration-fast: 120ms;    /* control feedback (button, toggle) */
+  --motion-duration-base: 180ms;    /* most transitions */
+  --motion-duration-slow: 280ms;    /* surfaces (card, modal enter) */
+  --motion-duration-deliberate: 420ms; /* explanatory / reassurance moments */
+
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);    /* general */
+  --motion-easing-enter: cubic-bezier(0, 0, 0, 1);         /* decelerate in */
+  --motion-easing-exit: cubic-bezier(0.3, 0, 1, 1);        /* accelerate out */
+  --motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1.4);/* tactile pop / spring */
+
+  --motion-lift: -2px;              /* hover translateY for raised surfaces */
+  --motion-press-scale: 0.97;       /* active-press feedback scale */
+  --motion-pop-scale: 1.06;         /* selection pop (preference intensity) */
+
+  /* --- Brand gradient primitive ---------------------------------------- */
+  /* TPD signature teal gradient (matches the product's HMW/emphasis fill). */
+  --gradient-brand-stops: #67e0d9 0%, #00c9d1 50%, #2fd4d6 100%;
+  --gradient-brand: linear-gradient(90deg, var(--gradient-brand-stops));
+  --gradient-brand-diagonal: linear-gradient(135deg, var(--gradient-brand-stops));
+}

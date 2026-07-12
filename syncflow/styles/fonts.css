@@ -1,0 +1,22 @@
+/* ============================================================================
+ * Self-hosted fonts (no CDN dependency). Files live in /public/fonts.
+ * Pretendard (OFL) — primary Korean UI/body/subtitle/detail.
+ * SUITE (OFL) — headings.
+ * Both are variable fonts (one file, all weights).
+ * ==========================================================================*/
+
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/PretendardVariable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'SUITE Variable';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SUITEVariable.woff2') format('woff2-variations');
+}

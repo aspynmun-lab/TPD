@@ -29,9 +29,9 @@ const roles: { href: string; icon: IconName; title: string; role: string; desc: 
 export function EntryLanding() {
   return (
     <div className="sf-hero-stage">
-      {/* 배경 영상: public/hero.mp4 를 넣으면 자동 재생됩니다. 없으면 fallback 그라디언트. */}
-      <video className="sf-hero-video" autoPlay muted loop playsInline preload="auto" poster="">
-        <source src="/hero.mp4" type="video/mp4" />
+      {/* 배경 영상 (public/landingbg.mp4). 없으면 fallback 그라디언트. */}
+      <video className="sf-hero-video" autoPlay muted loop playsInline preload="auto">
+        <source src="/landingbg.mp4" type="video/mp4" />
       </video>
       <div className="sf-hero-scrim" aria-hidden />
 

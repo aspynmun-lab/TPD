@@ -108,7 +108,14 @@ export function CreateMeetingScreen() {
             </p>
           )}
           <Inline gap="md" align="center">
-            <CTAButton disabled={!canSubmit} onAdvance={() => router.push("/board")}>초대 보내기</CTAButton>
+            <CTAButton
+              disabled={!canSubmit}
+              onAdvance={() =>
+                router.push(`/board?start=${rangeStart}&end=${rangeEnd}&title=${encodeURIComponent(title.trim())}`)
+              }
+            >
+              초대 보내기
+            </CTAButton>
             <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>참여자 {participants.length}명</span>
           </Inline>
         </Stack>

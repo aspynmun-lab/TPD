@@ -21,6 +21,7 @@ export function HostLanding() {
     <div className="sf-landing">
       <PageContainer>
         <Stack gap="xl" style={{ maxWidth: 640, marginInline: "auto" }}>
+          <Link href="/" className="sf-backlink type-b5" style={{ alignSelf: "start" }}>← 처음으로</Link>
           <Logo size={28} />
           <Stack gap="sm">
             <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>주최자</span>
@@ -33,18 +34,18 @@ export function HostLanding() {
           <Stack gap="md">
             {POINTS.map((text) => (
               <Inline key={text} gap="md" align="start">
-                <span className="emoji" aria-hidden style={{ width: 32, height: 32, flexShrink: 0 }}>
+                <span
+                  aria-hidden
+                  style={{ width: 24, height: 28, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
+                >
                   <Icon name="check" size="md" color="var(--color-text-accent)" />
                 </span>
-                <span className="type-b3" style={{ color: "var(--color-text-secondary)", paddingTop: 4 }}>{text}</span>
+                <span className="type-b3" style={{ color: "var(--color-text-secondary)" }}>{text}</span>
               </Inline>
             ))}
           </Stack>
 
-          <Inline gap="md" align="center">
-            <CTAButton onAdvance={() => router.push("/create")}>새 회의 만들기</CTAButton>
-            <Link href="/" className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>← 처음으로</Link>
-          </Inline>
+          <CTAButton onAdvance={() => router.push("/create")}>새 회의 만들기</CTAButton>
         </Stack>
       </PageContainer>
     </div>

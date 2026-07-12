@@ -28,6 +28,26 @@ export const WEEK: DayCol[] = RAW.map(([weekday, iso, label]) => ({
   past: iso < TODAY_ISO,
 }));
 
+const WEEKDAY_KR = ["일", "월", "화", "수", "목", "금", "토"];
+
+/** 조율 기간(YYYY-MM-DD ~ YYYY-MM-DD)에서 평일 컬럼을 생성한다.
+ *  주말은 제외, 최대 maxDays개, 지난 일자는 past=true로 표시(히트맵 disabled). */
+export function buildWeek(startIso: string, endIso: string, maxDays = 7): DayCol[] {
+  const out: DayCol[] = [];
+  const cur = new Date(`${startIso}T00:00:00`);
+  const end = new Date(`${endIso}T00:00:00`);
+  if (isNaN(cur.getTime()) || isNaN(end.getTime()) || end < cur) return WEEK;
+  while (cur <= end && out.length < maxDays) {
+    const dow = cur.getDay();
+    if (dow !== 0 && dow !== 6) {
+      const iso = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, "0")}-${String(cur.getDate()).padStart(2, "0")}`;
+      out.push({ key: iso, weekday: WEEKDAY_KR[dow], iso, label: `${cur.getMonth() + 1}/${cur.getDate()}`, past: iso < TODAY_ISO });
+    }
+    cur.setDate(cur.getDate() + 1);
+  }
+  return out.length > 0 ? out : WEEK;
+}
+
 export const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17]; // 09:00–18:00
 export const hh = (h: number) => `${String(h).padStart(2, "0")}:00`;
 
@@ -39,5 +59,5 @@ export const MEETING = {
   duration: "1시간",
   range: RANGE_LABEL,
   dday: 2,
-  total: 8,
+  total: 6, // 주최자가 조율하는 동료 6명 (덱의 "6명의 동료"와 일치)
 };

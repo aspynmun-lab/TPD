@@ -25,7 +25,7 @@ export function CandidateCard({ when, total, available, burden, recommended, con
           <Stack gap="xs">
             <span className="type-s2">{when}</span>
             <span className="type-d1" style={{ color: "var(--color-text-tertiary)" }}>
-              참석 가능 {available} / {total}명
+              선호 {available} / {total}명
             </span>
           </Stack>
           {confirmed ? (

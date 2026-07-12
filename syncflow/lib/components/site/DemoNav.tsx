@@ -9,6 +9,11 @@ export function DemoNav() {
     { href: "/invite", label: "참여자" },
     { href: "/board", label: "현황보드" },
   ];
+  const external = [
+    { href: "https://github.com/aspynmun-lab/TPD", label: "GitHub" },
+    { href: "https://design-system-pied-three.vercel.app", label: "디자인시스템" },
+  ];
+  const itemStyle = { padding: "6px 10px", borderRadius: "var(--radius-full)", color: "var(--color-text-secondary)" } as const;
   return (
     <nav
       style={{
@@ -21,10 +26,15 @@ export function DemoNav() {
     >
       <span className="type-d2" style={{ color: "var(--color-text-tertiary)", padding: "0 6px" }}>DEMO</span>
       {links.map((l) => (
-        <Link key={l.href} href={l.href} className="type-d1"
-          style={{ padding: "6px 10px", borderRadius: "var(--radius-full)", color: "var(--color-text-secondary)" }}>
+        <Link key={l.href} href={l.href} className="type-d1" style={itemStyle}>
           {l.label}
         </Link>
+      ))}
+      <span aria-hidden style={{ width: 1, height: 16, background: "var(--color-border-default)", margin: "0 2px" }} />
+      {external.map((l) => (
+        <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="type-d1" style={itemStyle}>
+          {l.label} ↗
+        </a>
       ))}
     </nav>
   );

@@ -7,6 +7,15 @@ import { Column, Col } from "@/lib/components/layout/Column";
 import { Logo } from "@/lib/components/site/Logo";
 import { Icon, type IconName } from "@/lib/components/ui/Icon";
 
+// UXFront 리서치 장표 (1920×1080) — 한 장씩 스크롤 섹션으로
+const uxSlides: { src: string; alt: string }[] = [
+  { src: "/ux/slide-1.jpg", alt: "Background — 같은 연차 동료들이 모여도 한 사람이 낸 시간이 채택되는 경우가 많았습니다" },
+  { src: "/ux/slide-2.jpg", alt: "How Might We — 어떻게 하면 회의 조율에서 부담이 특정인에게 쏠리지 않게 할 수 있을까요?" },
+  { src: "/ux/slide-3.jpg", alt: "Desk Research 1·2 — 빈 시간만으론 선호를 표현하기 어렵고, 가용성·선호·중요도를 함께 표현해야 합니다" },
+  { src: "/ux/slide-4.jpg", alt: "Desk Research 3·4 — 적응형 변화는 혼란을 유발할 수 있고, 캘린더 행동은 진짜 선호를 반영하지 않습니다" },
+  { src: "/ux/slide-5.jpg", alt: "Desk Research 5 & Weak-evidence — 선호는 조율 과정에서 구성될 수 있습니다" },
+];
+
 const roles: { href: string; icon: IconName; title: string; role: string; desc: string; cta: string }[] = [
   {
     href: "/host",
@@ -78,7 +87,19 @@ export function EntryLanding() {
             </p>
           </Stack>
         </PageContainer>
+        <a href="#ux-1" className="sf-scrollhint" aria-label="리서치 배경 보기">
+          <span className="type-d1">배경 리서치</span>
+          <Icon name="chevron-down" size="md" color="currentColor" />
+        </a>
       </section>
+
+      {/* Section 3+ — UXFront 리서치 장표 (한 장씩) */}
+      {uxSlides.map((s, i) => (
+        <section key={s.src} id={`ux-${i + 1}`} className="sf-snap sf-slide">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={s.src} alt={s.alt} className="sf-slide-img" loading={i === 0 ? "eager" : "lazy"} />
+        </section>
+      ))}
     </div>
   );
 }

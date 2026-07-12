@@ -17,6 +17,7 @@ export function InviteLanding() {
     <div className="sf-landing">
       <PageContainer>
         <Stack gap="xl" style={{ maxWidth: 560, marginInline: "auto" }}>
+          <Link href="/" className="sf-backlink type-b5" style={{ alignSelf: "start" }}>← 처음으로</Link>
           <Logo size={28} />
           <Stack gap="sm">
             <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>참여자</span>
@@ -24,7 +25,7 @@ export function InviteLanding() {
               <span className="sf-hero-gradient">{INVITE.organizer}</span>님의 회의에 초대되었어요
             </h1>
             <p className="ds-lead type-b2" style={{ color: "var(--color-text-secondary)" }}>
-              회의 참여 가능 일정을 입력해주세요. 가능/불가가 아니라 <strong>얼마나 괜찮은지</strong>만 칠하면 돼요.
+              회의 일정 선호를 입력해주세요. 가능/불가가 아니라 <strong>얼마나 괜찮은지</strong>만 칠하면 돼요.
             </p>
           </Stack>
 
@@ -40,10 +41,7 @@ export function InviteLanding() {
             </Stack>
           </div>
 
-          <Inline gap="md" align="center">
-            <CTAButton onAdvance={() => router.push("/respond")}>일정 입력하기</CTAButton>
-            <Link href="/" className="type-b5" style={{ color: "var(--color-text-tertiary)" }}>← 처음으로</Link>
-          </Inline>
+          <CTAButton onAdvance={() => router.push("/respond")}>일정 입력하기</CTAButton>
         </Stack>
       </PageContainer>
     </div>

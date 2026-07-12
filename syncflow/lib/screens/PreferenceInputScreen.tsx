@@ -94,7 +94,7 @@ export function PreferenceInputScreen() {
         <Stack gap="lg" style={{ maxWidth: 520, marginInline: "auto", paddingBlock: "8vh" }}>
           <Logo size={24} />
           <span className="sf-badge type-d1" style={{ alignSelf: "start" }}>응답 완료</span>
-          <h1 className="type-h3">선호를 저장했어요</h1>
+          <h1 className="type-h3">일정을 저장했어요</h1>
           <p className="type-b3" style={{ color: "var(--color-text-secondary)" }}>
             마감 전까지 언제든 수정할 수 있어요. 개인 응답은 주최자에게 <strong>집계 수치로만</strong> 전달되며, 누가 어떤 시간을 골랐는지는 공개되지 않습니다.
           </p>

@@ -286,3 +286,24 @@
 @media (prefers-reduced-motion: reduce) {
   .sf-logo-fadein, .sf-fadein { animation: none; }
 }
+
+/* --- Landing 2-section (intro → entry) ----------------------------------- */
+.sf-scroll { height: 100dvh; overflow-y: auto; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+.sf-snap { min-height: 100dvh; scroll-snap-align: start; position: relative; }
+
+/* Section 1: intro — video (loop) + centered logo (fade-in once) */
+.sf-intro { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.sf-intro-logo { position: relative; z-index: 2; }
+
+/* Section 2: entry — role chooser on dark canvas */
+.sf-entry { display: flex; align-items: center; justify-content: center; background: var(--color-bg-canvas); }
+
+/* scroll hint */
+.sf-scrollhint {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  z-index: 3; display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  color: color-mix(in srgb, var(--palette-grey-900) 55%, transparent);
+  animation: sf-bob 1.6s ease-in-out infinite;
+}
+@keyframes sf-bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+@media (prefers-reduced-motion: reduce) { .sf-scrollhint { animation: none; } }

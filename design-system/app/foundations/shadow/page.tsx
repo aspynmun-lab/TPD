@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { shadowRoles } from "@/lib/tokens";
 
-export const metadata = { title: "Shadow · TPD Design System" };
+export const metadata = { title: "Shadow · SyncFlow Design System" };
 
 export default function ShadowPage() {
   return (

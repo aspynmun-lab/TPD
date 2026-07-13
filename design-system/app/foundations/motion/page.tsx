@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { MotionDemos } from "@/lib/components/site/MotionDemos";
 
-export const metadata = { title: "Motion · TPD Design System" };
+export const metadata = { title: "Motion · SyncFlow Design System" };
 
 const durations = [
   { token: "--motion-duration-fast", value: "120ms", use: "컨트롤 피드백 (버튼·토글)" },
@@ -32,7 +32,7 @@ export default function MotionPage() {
           <span className="ds-eyebrow type-d1">Foundations</span>
           <h1 className="type-h2" style={{ marginTop: 8 }}>Motion · Micro-interactions</h1>
           <p className="ds-lead type-b3">
-            TPD는 사람들이 선호를 반복해서 입력·비교·수정하는 도구입니다. 모션은 <strong>차분하고 빠르게</strong>(반복 사용에도
+            SyncFlow는 사람들이 선호를 반복해서 입력·비교·수정하는 도구입니다. 모션은 <strong>차분하고 빠르게</strong>(반복 사용에도
             거슬리지 않게), 선호를 정할 땐 <strong>촉각적 확인</strong>을, 상태가 바뀔 땐 <strong>안심</strong>을 줍니다.
             적응형 추천 변경은 조금 더 느리게 움직여 사용자가 &quot;왜 바뀌었는지&quot; 따라올 수 있게 합니다.
             <br />모든 모션은 <code>prefers-reduced-motion</code>에서 자동으로 축소됩니다.

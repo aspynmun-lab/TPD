@@ -1,8 +1,8 @@
 /* ============================================================================
- * TPD Design System — TIER 1: PRIMITIVES
+ * SyncFlow Design System — TIER 1: PRIMITIVES
  * Raw, context-free values. Never reference these directly in components;
  * always go through TIER 2 role tokens (semantic.css).
- * Palette source: TPD brand color sheet (teal / orange / grey).
+ * Palette source: SyncFlow brand color sheet (teal / orange / grey).
  * Functional status hues (red/green) are the minimal set added for
  * error/success feedback only — not part of the 3-hue brand palette.
  * ==========================================================================*/
@@ -130,7 +130,7 @@
   --motion-pop-scale: 1.06;         /* selection pop (preference intensity) */
 
   /* --- Brand gradient primitive ---------------------------------------- */
-  /* TPD signature teal gradient (matches the product's HMW/emphasis fill). */
+  /* SyncFlow signature teal gradient (matches the product's HMW/emphasis fill). */
   --gradient-brand-stops: #67e0d9 0%, #00c9d1 50%, #2fd4d6 100%;
   --gradient-brand: linear-gradient(90deg, var(--gradient-brand-stops));
   --gradient-brand-diagonal: linear-gradient(135deg, var(--gradient-brand-stops));

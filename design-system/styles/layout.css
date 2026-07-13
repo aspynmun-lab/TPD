@@ -1,8 +1,8 @@
 /* ============================================================================
- * TPD Design System — LAYOUT SYSTEM (TIER 2)
+ * SyncFlow Design System — LAYOUT SYSTEM (TIER 2)
  * Ported as-is from the Kairo layout primitives: Stack / Inline / Column /
  * PageContainer. Behaviour and token bindings are preserved; only colors and
- * theme belong to the TPD system.
+ * theme belong to the SyncFlow system.
  *
  * Gap sizes bind to --space-layout-* role tokens. Column is a 12-track grid
  * with a --space-layout-gutter gap.

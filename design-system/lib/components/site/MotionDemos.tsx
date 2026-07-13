@@ -7,7 +7,7 @@ import { CTAButton } from "@/lib/components/ui/CTAButton";
 
 const intensities = ["불가", "부담", "괜찮음", "좋음"];
 
-/** Interactive micro-interaction demos tuned to the TPD scheduling product. */
+/** Interactive micro-interaction demos tuned to the SyncFlow scheduling product. */
 export function MotionDemos() {
   const [picked, setPicked] = useState<number | null>(2);
   const [explainKey, setExplainKey] = useState(0);

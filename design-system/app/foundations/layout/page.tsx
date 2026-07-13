@@ -3,7 +3,7 @@ import { Stack } from "@/lib/components/layout/Stack";
 import { Inline } from "@/lib/components/layout/Inline";
 import { Column, Col } from "@/lib/components/layout/Column";
 
-export const metadata = { title: "Layout · TPD Design System" };
+export const metadata = { title: "Layout · SyncFlow Design System" };
 
 const box = (label: string) => <div className="demo-box type-d1">{label}</div>;
 
@@ -18,7 +18,7 @@ export default function LayoutPage() {
             Four primitives carried over as-is: <code>Stack</code> (vertical), <code>Inline</code> (horizontal),
             <code> Column</code> (12-track grid), <code>PageContainer</code> (page shell). Gaps bind to
             <code> --space-layout-*</code> role tokens; the grid gutter is 24px. Behaviour is preserved — only
-            colors are TPD.
+            colors are SyncFlow.
           </p>
         </header>
 

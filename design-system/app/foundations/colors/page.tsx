@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { palettes, roleGroups } from "@/lib/tokens";
 
-export const metadata = { title: "Colors · TPD Design System" };
+export const metadata = { title: "Colors · SyncFlow Design System" };
 
 export default function ColorsPage() {
   return (

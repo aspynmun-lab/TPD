@@ -1,5 +1,5 @@
 /* ============================================================================
- * TPD Design System — TIER 2: ROLE / SEMANTIC TOKENS
+ * SyncFlow Design System — TIER 2: ROLE / SEMANTIC TOKENS
  * Purpose-named tokens that map onto TIER 1 primitives.
  * Components consume ONLY these (and TIER 3 component tokens), never primitives.
  *
@@ -235,7 +235,7 @@
   --motion-select:   var(--motion-duration-base) var(--motion-easing-emphasized);
 
   /* Accent interaction color (gradient) ---------------------------------- */
-  /* The TPD brand gradient IS the accent interaction color. Use it for the
+  /* The SyncFlow brand gradient IS the accent interaction color. Use it for the
      confirm/advance moment on CTAs, strongest-positive preference, the
      recommended candidate, and selected emphasis. */
   /* +8% white tint on the large accent fill (softer than raw teal-500). primitive palette unchanged. */

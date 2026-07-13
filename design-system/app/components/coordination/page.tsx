@@ -4,7 +4,7 @@ import { Column, Col } from "@/lib/components/layout/Column";
 import { CandidateCard } from "@/lib/components/product/CandidateCard";
 import { BurdenMeter } from "@/lib/components/product/BurdenMeter";
 
-export const metadata = { title: "Coordination · TPD Design System" };
+export const metadata = { title: "Coordination · SyncFlow Design System" };
 
 export default function CoordinationPage() {
   return (

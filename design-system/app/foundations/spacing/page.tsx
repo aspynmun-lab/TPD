@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { spacingScale, layoutSpacing } from "@/lib/tokens";
 
-export const metadata = { title: "Spacing · TPD Design System" };
+export const metadata = { title: "Spacing · SyncFlow Design System" };
 
 export default function SpacingPage() {
   return (

@@ -6,7 +6,7 @@ import { StatusBadge } from "@/lib/components/ui/StatusBadge";
 import { Avatar } from "@/lib/components/ui/Avatar";
 import { Inline } from "@/lib/components/layout/Inline";
 
-export const metadata = { title: "Participant · TPD Design System" };
+export const metadata = { title: "Participant · SyncFlow Design System" };
 
 export default function ParticipantPage() {
   return (

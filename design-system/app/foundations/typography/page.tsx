@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { typeStyles } from "@/lib/tokens";
 
-export const metadata = { title: "Typography · TPD Design System" };
+export const metadata = { title: "Typography · SyncFlow Design System" };
 
 export default function TypographyPage() {
   return (
@@ -13,7 +13,7 @@ export default function TypographyPage() {
           <h1 className="type-h2" style={{ marginTop: 8 }}>Typography</h1>
           <p className="ds-lead type-b3">
             Headings use <strong>SUITE</strong>; subtitle, body and detail use <strong>Pretendard</strong>.
-            Every style shares a <code>-0.2px</code> letter-spacing. Values follow the TPD type spec exactly.
+            Every style shares a <code>-0.2px</code> letter-spacing. Values follow the SyncFlow type spec exactly.
           </p>
         </header>
 

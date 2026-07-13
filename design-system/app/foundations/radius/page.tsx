@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { radiusScale, radiusRoles } from "@/lib/tokens";
 
-export const metadata = { title: "Radius · TPD Design System" };
+export const metadata = { title: "Radius · SyncFlow Design System" };
 
 export default function RadiusPage() {
   return (

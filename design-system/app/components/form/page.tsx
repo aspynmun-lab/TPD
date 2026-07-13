@@ -2,7 +2,7 @@ import { PageContainer } from "@/lib/components/layout/PageContainer";
 import { Stack } from "@/lib/components/layout/Stack";
 import { FormDemos } from "@/lib/components/site/FormDemos";
 
-export const metadata = { title: "Form controls · TPD Design System" };
+export const metadata = { title: "Form controls · SyncFlow Design System" };
 
 const tokens = [
   { token: ".ds-select-trigger", maps: "bg-canvas + border-default, radius-interactive-sm" },

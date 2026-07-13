@@ -51,9 +51,9 @@ export default function Home() {
             Dark-first design tokens & layout system
           </h1>
           <p className="ds-lead type-b3">
-            A three-tier token architecture (Primitive → Role → Component) built on the TPD
+            A three-tier token architecture (Primitive → Role → Component) built on the SyncFlow
             Teal / Orange / Grey palette, with SUITE + Pretendard typography and a layout system
-            ported from the Kairo reference. Colors are entirely TPD; layout behaviour is preserved.
+            ported from the Kairo reference. Colors are entirely SyncFlow; layout behaviour is preserved.
           </p>
         </header>
 

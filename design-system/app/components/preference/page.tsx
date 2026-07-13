@@ -3,7 +3,7 @@ import { Stack } from "@/lib/components/layout/Stack";
 import { PreferenceDemo } from "@/lib/components/site/PreferenceDemo";
 import { AvailabilityGrid } from "@/lib/components/product/AvailabilityGrid";
 
-export const metadata = { title: "Preference input · TPD Design System" };
+export const metadata = { title: "Preference input · SyncFlow Design System" };
 
 export default function PreferencePage() {
   return (

@@ -1,8 +1,8 @@
 /* ============================================================================
- * TPD Design System — TIER 3: COMPONENT TOKENS + STYLES  (Button)
+ * SyncFlow Design System — TIER 3: COMPONENT TOKENS + STYLES  (Button)
  * Component tokens (--*-comp-button-*) name the component's roles and map them
  * to TIER 2 role tokens. Components NEVER touch primitives directly.
- * Layout/shape/spacing behaviour references the Kairo Button; colors are TPD.
+ * Layout/shape/spacing behaviour references the Kairo Button; colors are SyncFlow.
  * ==========================================================================*/
 
 :root {

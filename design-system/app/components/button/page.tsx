@@ -3,7 +3,7 @@ import { Stack } from "@/lib/components/layout/Stack";
 import { Inline } from "@/lib/components/layout/Inline";
 import { Button } from "@/lib/components/ui/Button";
 
-export const metadata = { title: "Button · TPD Design System" };
+export const metadata = { title: "Button · SyncFlow Design System" };
 
 const compTokens: { token: string; maps: string }[] = [
   { token: "--color-comp-button-primary-bg", maps: "--color-brand-primary (teal-500 / teal-500)" },
@@ -31,7 +31,7 @@ export default function ButtonPage() {
           <p className="ds-lead type-b3">
             Reference for the component-tier pattern: the button names its own roles as
             <code> --*-comp-button-*</code> tokens, which bind to Tier-2 role tokens — never to
-            primitives. Layout/shape follow the Kairo button; all color is TPD. Brand fills use a
+            primitives. Layout/shape follow the Kairo button; all color is SyncFlow. Brand fills use a
             dark label because teal/orange fail contrast against white.
           </p>
         </header>
